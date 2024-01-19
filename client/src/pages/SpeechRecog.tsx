@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 // const SpeechGrammarList = window.webkitSpeechGrammarList;
@@ -12,9 +14,6 @@ const recognition = new SpeechRecognition();
 recognition.lang = 'zh-yue';
 recognition.interimResults = true;
 recognition.continuous = false;
-
-
-
 
 export default function SpeechRecog() {
 
@@ -28,6 +27,9 @@ export default function SpeechRecog() {
     }
   }, [newMsg]);
 
+
+  const count = useAppSelector((state: any) => state.interview._id);
+  console.log(count);
 
   // FUNCTIONS
 
