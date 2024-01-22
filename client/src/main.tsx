@@ -4,7 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './redux/store.ts';
 
+import './styles/css/index.css';
 import App from './App.tsx';
+
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

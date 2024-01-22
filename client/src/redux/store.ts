@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import interviewSlice from './slices/interviewSlice';
+import loginSlice from './slices/loginSlice';
 // ...
 
 export const store = configureStore({
   reducer: {
-    interview: interviewSlice
+    interview: interviewSlice,
+    login: loginSlice
   },
 });
 
