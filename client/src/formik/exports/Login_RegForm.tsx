@@ -2,7 +2,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import TextFieldReuse from '../reuse/TextFieldReuse';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { loginAutoFill, regEmailTyping, regPasswordTyping, regPasswordConfirmTyping, loginReset } from '../../redux/slices/loginSlice';
+import { regEmailTyping, regPasswordTyping, regPasswordConfirmTyping, loginReset } from '../../redux/slices/loginSlice';
 import { Dispatch } from '@reduxjs/toolkit';
 
 
@@ -56,8 +56,7 @@ const regValidateSchema = Yup.object().shape({
     .matches(/^[A-Za-z][A-Za-z0-9!@#$%^&*]*$/, 'Password contains latin characters, numbers and symbols.')
     .required('Password is required.'),
   confirm_password: Yup.string()
-    .min(8, "Password contains at least 8 digits.")
-    .matches(/^[A-Za-z][A-Za-z0-9!@#$%^&*]*$/, 'Password contains latin characters, numbers and symbols.')
+    .oneOf([Yup.ref('password')], '* Password Confirm does not match.')
     .required('Password Confirmation is required.')
 });
 
