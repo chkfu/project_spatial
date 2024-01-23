@@ -2,13 +2,16 @@
 import { Link } from 'react-router-dom';
 import { switchForm } from '../redux/slices/loginSlice';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { loginReset, regReset } from '../redux/slices/loginSlice';
 import Login_LoginForm from '../formik/exports/Login_LoginForm';
 import Login_RegForm from '../formik/exports/Login_RegForm';
 
 
+
+
 export default function Login(): React.ReactNode {
 
-  // REDUX
+  // Redux
   const currentForm: string = useAppSelector(state => state.login.formDisplay);
 
   return (
@@ -25,7 +28,7 @@ export default function Login(): React.ReactNode {
 
 function LOGIN_FORM(): React.ReactNode {
 
-  // REDUX
+  // Redux
   const dispatch = useAppDispatch();
 
   return (
@@ -33,7 +36,7 @@ function LOGIN_FORM(): React.ReactNode {
       {/* Part 1: Network Login Row */}
       <div id="login_network_row">
         <h2>Login to Your Account</h2>
-        <p>Login through your network</p>
+        <p>Explore through your network</p>
         <div>
           <img className="login_icons" src="/icons/google.svg" alt="Google Login Icon" />
           <img className="login_icons" src="/icons/linkedin.svg" alt="Linkedin Login Icon" />
@@ -50,7 +53,7 @@ function LOGIN_FORM(): React.ReactNode {
         </div>
         {/* Part 4: Form Switcher */}
         <div id="login_switcher_trigger">
-          <p>Not yet a member? <span onClick={() => { dispatch(switchForm('registration')); }}>Register Now</span>.</p>
+          <p>Not yet a member? <span onClick={() => { FormSwitcherHandler(dispatch, "registration"); }}>Register Now</span>.</p>
         </div>
       </div>
     </div >
@@ -60,14 +63,14 @@ function LOGIN_FORM(): React.ReactNode {
 
 function REG_FORM(): React.ReactNode {
 
-  // REDUX
+  // Redux
   const dispatch = useAppDispatch();
 
   return (
     <div className="login_page_forms" id="reg_form_container">
       {/* Part 1: Network Login Row */}
       <div id="reg_network_row">
-        <h2>Welcome to Our Service</h2>
+        <h2>Welcome to Voicetale</h2>
         <p>Join through your network</p>
         <div>
           <img className="reg_icons" src="/icons/google.svg" alt="Google Registration Icon" />
@@ -79,12 +82,23 @@ function REG_FORM(): React.ReactNode {
         <Login_RegForm />
         {/* Part 3: Form Switcher */}
         <div id="reg_switcher_trigger">
-          <p>Already have your account? <span onClick={() => { dispatch(switchForm('login')); }}>Login Now</span>.</p>
+          <p>Already have your account? <span onClick={() => FormSwitcherHandler(dispatch, "login")}>Login Now</span>.</p>
         </div>
       </div>
     </div >
   );
 }
 
+
+
+
+// FUNCTIONS
+
+function FormSwitcherHandler(dispatch: any, formRequired: string) {
+
+  dispatch(switchForm(formRequired));
+  dispatch(loginReset());
+  dispatch(regReset());
+}
 
 

@@ -185,7 +185,7 @@ main#login_page div#seciton_frame div.login_page_forms#login_form_container div#
   padding: 0px 8px;
 }
 main#login_page div#seciton_frame div.login_page_forms#login_form_container div#login_formik_row .form_container, main#login_page div#seciton_frame div.login_page_forms#login_form_container div#reg_formik_row .form_container, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#login_formik_row .form_container, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#reg_formik_row .form_container, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#login_formik_row .form_container, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#reg_formik_row .form_container, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#login_formik_row .form_container, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#reg_formik_row .form_container {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 main#login_page div#seciton_frame div.login_page_forms#login_form_container div#login_formik_row::before, main#login_page div#seciton_frame div.login_page_forms#login_form_container div#reg_formik_row::before, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#login_formik_row::before, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#reg_formik_row::before, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#login_formik_row::before, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#reg_formik_row::before, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#login_formik_row::before, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#reg_formik_row::before {
   content: "OR";
@@ -201,12 +201,12 @@ main#login_page div#seciton_frame div.login_page_forms#login_form_container div#
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 20px 0;
+  padding: 16px 0;
 }
 main#login_page div#seciton_frame div.login_page_forms#login_form_container div#login_btn_box button, main#login_page div#seciton_frame div.login_page_forms#login_form_container div#reg_btn_box button, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#login_btn_box button, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#reg_btn_box button, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#login_btn_box button, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#reg_btn_box button, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#login_btn_box button, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#reg_btn_box button {
   width: 48%;
   height: 40px;
-  font-size: 18px;
+  font-size: 16px;
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -226,6 +226,7 @@ main#login_page div#seciton_frame div.login_page_forms#login_form_container div#
   align-items: center;
   margin-top: 12px;
   margin-left: 14px;
+  font-size: 14px;
   cursor: pointer;
 }
 main#login_page div#seciton_frame div.login_page_forms#login_form_container div#login_forget_password span, main#login_page div#seciton_frame div.login_page_forms#login_form_container div#reg_forget_password span, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#login_forget_password span, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#reg_forget_password span, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#login_forget_password span, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#reg_forget_password span, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#login_forget_password span, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#reg_forget_password span {
@@ -242,6 +243,7 @@ main#login_page div#seciton_frame div.login_page_forms#login_form_container div#
   margin-left: 14px;
   display: flex;
   justify-content: center;
+  font-size: 16px;
   cursor: pointer;
 }
 main#login_page div#seciton_frame div.login_page_forms#login_form_container div#login_switcher_trigger p, main#login_page div#seciton_frame div.login_page_forms#login_form_container div#reg_switcher_trigger p, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#login_switcher_trigger p, main#login_page div#seciton_frame div.login_page_forms#reg_form_container div#reg_switcher_trigger p, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#login_switcher_trigger p, main#login_page div#seciton_frame div.reg_page_forms#login_form_container div#reg_switcher_trigger p, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#login_switcher_trigger p, main#login_page div#seciton_frame div.reg_page_forms#reg_form_container div#reg_switcher_trigger p {
@@ -274,7 +276,7 @@ main#login_page div#seciton_frame div.login_page_forms#login_form_container div#
 }
 
 .text_field_row_main {
-  height: 80px;
+  height: 72px;
 }
 
 .text_field_label {
@@ -289,7 +291,7 @@ main#login_page div#seciton_frame div.login_page_forms#login_form_container div#
 .text_field_input {
   display: block;
   width: 100%;
-  height: 48px;
+  height: 42px;
   padding-left: 14px;
   border-radius: 20px;
   font-size: 18px;

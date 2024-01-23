@@ -59,11 +59,15 @@ export const loginSlice = createSlice({
     },
     regPasswordConfirmTyping: (state, action: PayloadAction<string>) => {
       state._regPasswordConfirm = action.payload;
-    }
+    },
+    regReset: (state) => {
+      state.regEmail = "";
+      state._regPassword = "";
+    },
   },
 });
 
-export const { switchForm, loginAutoFill, loginReset, loginEmailTyping, loginPasswordTyping, regEmailTyping, regPasswordTyping, regPasswordConfirmTyping } = loginSlice.actions;
+export const { switchForm, loginAutoFill, loginReset, loginEmailTyping, loginPasswordTyping, regEmailTyping, regPasswordTyping, regPasswordConfirmTyping, regReset } = loginSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export default loginSlice.reducer;

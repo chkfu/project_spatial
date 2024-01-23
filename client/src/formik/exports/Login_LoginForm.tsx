@@ -33,8 +33,8 @@ export default function Login_LoginForm() {
               // Remarks: 
               // Unable to update at first click if setting the values from redux states
               // SetFieldValue for initial values update => submit new values
-            }}>Auto-fill</button>
-            <button type="submit">Submit</button>
+            }}>Be our Guest!</button>
+            <button type="submit">Login</button>
           </div>
         </Form>
       )}
@@ -62,6 +62,7 @@ const loginValidateSchema = Yup.object().shape({
 
 
 // FUNCTIONS
+
 function LoginSubmitHandler(values: typeof loginInitialValues, dispatch: Dispatch) {
   console.log(values);
   dispatch(loginReset());
