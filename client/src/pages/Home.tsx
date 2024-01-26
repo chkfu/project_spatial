@@ -17,7 +17,6 @@ export default function Home() {
           <h2>Turn Spoken Words into Text Tapestry, Craft Narratives Effortlessly, and Refine Your Stories Seamlessly.</h2>
           <div>
             <Link to="/login"><button>Get Started</button></Link>
-
           </div>
 
         </div>
