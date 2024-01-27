@@ -53,7 +53,7 @@ const loginInitialValues = {
 const loginValidateSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address.")
-    .required('Email address is required'),
+    .required('Email address is required.'),
   password: Yup.string()
     .min(8, "Password contains at least 8 digits.")
     .matches(/^[A-Za-z][A-Za-z0-9!@#$%^&*]*$/, 'Password contains latin characters, numbers and symbols.')

@@ -1,0 +1,153 @@
+@use '../elements/colors.scss' as colors;
+@use '../elements/fonts.scss' as fonts;
+
+
+
+// (A) MAIN
+
+main#home_page {
+  #home_section_hero {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    &::before { 
+      content: " ";
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background: url('/images/home_bg_hero.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: -300;
+    }
+    &::after { 
+      content: " ";
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(150deg, transparent 0%,transparent 45%, colors.$grey_900 80%, colors.$grey_900 100%), ;
+      filter: brightness(0.7);
+      z-index: -100;
+    }
+  }
+}
+
+
+// (1) video background
+
+#home_video_bg_lazy {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -200;
+}
+
+#home_video_bg {
+  position: relative;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: -200;
+  filter: brightness(0.6)
+}
+
+// (2) text box
+
+#home_hero_textbox {
+  position: absolute;
+  width: 50%;
+  min-width: 400px;
+  top: 24%;
+  right: 10vw;
+  padding: 56px 36px;
+  color: colors.$grey_300;
+
+  h1 {
+    font-size: fonts.$head_size_200;
+    text-align: center;
+    animation-name: home_hero_h1_fading;
+    animation-duration: 1.5s;
+  }
+
+  h2 {
+    margin-top: 20px;
+    font-size: fonts.$para_size_500;
+    line-height: fonts.$para_size_900;
+    text-align: center;
+    animation-name: home_hero_h2_fading;
+    animation-duration: 1.5s;
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin-top: 42px;
+      padding: 18px 24px;
+      font-size: fonts.$para_size_500;
+      color: colors.$grey_300;
+      border: 2px solid  colors.$grey_300;
+      background-color: transparent;
+      animation-name: home_hero_h2_fading;
+      animation-duration: 4s;
+      cursor: pointer;
+    }
+  } 
+}
+
+
+
+// (B) RESPONSIVE DESIGNS
+
+// @media screen and (max-width: 768px) {
+// }
+
+// @media screen and (max-width: 1024px) {
+// }
+
+
+
+// (C) ANIMATION
+
+@keyframes home_hero_h1_fading {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes home_hero_h2_fading {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes home_hero_button_fading {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

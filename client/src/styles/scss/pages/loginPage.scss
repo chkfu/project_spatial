@@ -1,0 +1,201 @@
+@use '../elements/colors.scss' as colors;
+@use '../elements/fonts.scss' as fonts;
+
+
+
+// (A) MAIN
+
+main#login_page {
+  width: 100vw;
+  height: 100vh;
+  background:#333333;
+  background-image: url('/images/login_bg_feature.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  div#seciton_frame {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    color: colors.$grey_300;
+  }
+}
+
+// (1) forms
+
+div.login_page_forms, div.reg_page_forms {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  min-width: 480px;
+  height: 100vh;
+  background-color: colors.$grey_100;
+
+  &#login_form_container, &#reg_form_container{
+    overflow: scroll;
+    padding-bottom: 60px;
+    transform: translateX(0);
+    animation-name: login_login_form_fading;
+    animation-duration: 1s;
+    text-align: center;
+
+    div#login_network_row, div#reg_network_row  {
+      margin-top: 15%;
+
+      h2 {
+        margin: 2%;
+        font-size: fonts.$head_size_200;
+        line-height: 48px;
+        color: colors.$grey_800;
+      }
+
+      p {
+        color: colors.$grey_500;
+        line-height: fonts.$para_size_900;
+      }
+
+      div {
+        img.login_icons, img.reg_icons {
+          width: 58px;
+          height: 58px;
+          margin: 0 8px;
+          background: colors.$grey_100;
+          border-radius: 100%;
+          cursor: pointer;
+        }
+      }
+    }
+
+    // (1a) input area
+
+    div#login_formik_row, div#reg_formik_row {
+      border-top: 0.5px solid colors.$grey_500;
+      width: 70%;
+      margin-top: 24px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0px 8px;
+
+      .form_container {
+        margin-top: 20px;
+      }
+
+      &::before {
+        content: "OR";
+        position: absolute;
+        transform: translateX(-50%) translateY(-50%);
+        background-color: colors.$grey_100;
+        width: 40px;
+        color: colors.$grey_500;
+        font-size: fonts.$para_size_200;
+        z-index: 100;
+      }
+    }
+
+    // (1b) button box
+
+    div#login_btn_box, div#reg_btn_box {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 16px 0;
+
+      button {
+        width: 48%;
+        height: 40px;
+        font-size: fonts.$para_size_300;
+        border: none;
+        border-radius: 25px;
+      
+        cursor: pointer;
+
+        &:first-child {
+          border: 0.5px solid colors.$grey_700;
+          background-color: colors.$grey_100;
+          color: colors.$grey_700;
+        }
+
+        &:last-child {
+          background-color: colors.$grey_700;
+          color: colors.$grey_100;
+        }
+      }
+    }
+
+    // (1c) redirect links
+    
+    div#login_forget_password, div#reg_forget_password {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 12px;
+      margin-left: 14px;
+      font-size: fonts.$para_size_200;
+      cursor: pointer;
+
+      span {
+        color: colors.$blue_600;
+        font-weight: bold;
+
+        &:hover {
+          filter: brightness(1.2);
+          text-decoration: underline;                
+          text-underline-offset: 4px;
+        }
+      }
+    }
+
+    div#login_switcher_trigger, div#reg_switcher_trigger {
+      margin-top: 28px;
+      margin-left: 14px;
+      display: flex;
+      justify-content: center;
+      font-size: fonts.$para_size_300;
+      cursor: pointer;
+
+      p {
+        color: colors.$grey_500;
+
+        span {
+          color: colors.$blue_600;
+          font-weight: bold;
+
+          &:hover {
+            filter: brightness(1.2);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+// (B) RESPONSIVE DESIGNS
+
+// @media screen and (max-width: 768px) {
+// }
+
+// @media screen and (max-width: 1024px) {
+// }
+
+
+
+// (C) ANIMATION
+
+@keyframes login_login_form_fading {
+  0% {
+    transform: translateX(50vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

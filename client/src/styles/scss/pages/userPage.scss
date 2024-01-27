@@ -1,0 +1,206 @@
+@use '../elements/colors.scss' as colors;
+@use '../elements/fonts.scss' as fonts;
+
+
+
+// (A) MAIN
+
+// (1) Outer Frame
+main#user_dashboard_personal {
+  
+  section.user_dashboard_contents {
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    left: 240px;
+    width: calc(100vw - 240px);
+    height: 100vh;      
+    padding: 36px 10%;
+    background-color: colors.$grey_100;
+    transition: left 0.7s ease-in-out;
+
+    // (1a) welcome message
+
+    p {
+      font-size: fonts.$para_size_800;
+      font-weight: bold;
+    }
+
+    // (1b) panel region
+
+    div.user_dashboard_fields {
+      margin-top: 24px;
+
+      div.dashboard_field_titles {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 36px;
+        padding: 4px 0;
+        font-weight: bold;
+        font-size: fonts.$para_size_700;
+      }
+
+      div.dashboard_field_contentBox {
+        display: flex;
+        border-radius: 10px;
+        padding: 12px 12px 36px 12px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+    }
+  }
+}
+
+
+// (2) Tables - Task Managers
+
+table.task_manager_list {
+padding: 0 16px;
+width: 95%;
+font-size: fonts.$para_size_200;
+
+  tr {
+
+    &:not(:first-child):hover {
+      filter: brightness(1.05);
+    }
+    &.task_listRow_overdue {
+      background: colors.$red_200;
+      background: linear-gradient(135deg, colors.$red_100, colors.$red_200);
+      color: colors.$red_700;
+
+    }
+    &.task_listRow_upcoming {
+      background: colors.$green_200;
+      background: linear-gradient(135deg, colors.$green_100, colors.$green_200);
+      color: colors.$green_700;
+    }
+    
+    th {
+      overflow: auto;
+      background: colors.$grey_200;
+      color: colors.$grey_700;
+      resize: horizontal;
+      padding: 4px;
+      text-transform: capitalize;
+
+      &:first-child {
+        flex: 3;
+      }
+      &:last-child {
+        flex: 2;
+      }
+    }
+
+    td {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 150px;
+      font-weight: bold;
+      white-space: nowrap;
+      cursor: pointer;
+      &:first-child {
+        padding: 4px 12px;
+      }
+      &:last-child {
+        text-align: center;
+        padding: 4px;
+      }
+    }
+  }
+}
+
+// (3) List - Project Panel
+
+div.dashboard_field_bodysRows {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 0;
+  transition: left 0.7s ease-in-out;
+
+  h5 {
+    margin-left: 8px;
+    padding: 4px 8px;
+    font-size: fonts.$para_size_500;
+  }
+
+  // (3a) task manager section
+  div.task_manager_list {
+    padding: 4px 16px;
+
+  }
+
+  // (3b) work console section
+  div.pending_folder_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    div {
+      display: flex;
+      justify-content: evenly;
+      width: 64px;
+      height: 58px;
+      align-items: center;
+      position: relative;
+      margin: 8px;
+      cursor: pointer;
+      &:hover {
+        filter: brightness(1.1);
+      }
+      &::before {
+        content: attr(data-folderName);
+        overflow: hidden;
+        display: -webkit-box;
+        position: absolute;
+        top: 30%;
+        width: 64px;
+        height: 28px;
+        color: colors.$grey_500;
+        font-size: fonts.$para_size_200;;
+        text-align: center;
+        line-height: fonts.$para_size_100;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        transform: translateX(-2px) translateY(40px);
+
+        text-overflow: ellipsis;
+      }
+      &:hover::before {
+        content: attr(data-folderName);
+        filter: brightness(1.2);
+      }
+
+      img {
+        margin: 8px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+  }
+}
+
+
+
+// (B) RESPONSIVE DESIGN
+
+@media screen and (max-width: 768px) {
+  section.user_dashboard_contents {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: left 0.7s ease-in-out;
+  }
+}
+
+@media screen and (max-width: 1024px) { 
+
+    div.user_dashboard_fields {
+      margin-top: 24px;
+
+      div.dashboard_field_contentBox {
+        display: block;
+      }
+    }
+}

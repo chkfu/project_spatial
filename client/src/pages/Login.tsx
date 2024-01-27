@@ -91,7 +91,6 @@ function REG_FORM(): React.ReactNode {
 
 
 
-
 // FUNCTIONS
 
 function FormSwitcherHandler(dispatch: any, formRequired: string) {
