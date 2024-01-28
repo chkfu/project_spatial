@@ -15,20 +15,24 @@
   padding: 0px 14px;
   font-size: 14px;
   line-height: 0;
+  text-align: left;
   color: colors.$red_500;
+  float: left;
 }
 
 // (2) text field
 
-.text_field_row {
+// (2a) login form style
+
+.login_text_field_row {
   padding: 8px 0;
 }
 
-.text_field_row_main {
+.login_text_field_row_main {
   height: 72px;
 }
 
-.text_field_label {
+.login_text_field_label {
   display: block;
   padding-left: 14px;
   text-transform: capitalize;
@@ -37,7 +41,7 @@
   font-weight: bold;
 }
 
-.text_field_input {
+.login_text_field_input {
   display: block;
   width: 100%;
   height: 42px;
@@ -45,5 +49,60 @@
   border-radius: 20px;
   font-size: fonts.$para_size_400;
   color:  colors.$grey_700;
+}
+
+// (2b) case information page
+
+.caseInfo_text_field_label {
+  display: flex;
+  align-items: center;
+  padding-left: 18px;
+  width: 120px;
+  text-transform: capitalize;
+  font-size: fonts.$para_size_300;
+  font-weight: bold;
+  color: colors.$grey_500;
+}
+
+.caseInfo_text_field_input {
+  margin: 16px 8px;
+  padding: 8px 24px;
+  width: 40vw;
+  height: 48px;
+  border-radius: 15px;
+  font-size: fonts.$para_size_300;
+  translate: width 1s ease-in-out;
+}
+
+
+// (3) Select Field
+
+.caseInfo_select_field_input {
+  margin: 8px;
+  padding: 8px 24px;
+  width: 40vw;
+  height: 48px;
+  border-radius: 15px;
+  font-size: fonts.$para_size_300;
+  translate: width 1s ease-in-out;
+  cursor: pointer;
+}
+
+
+
+// RESPONSIVE DESIGNS
+
+@media screen and (max-width: 1024px) {
+  .caseInfo_text_field_input, .caseInfo_select_field_input {
+    width: 30vw;
+    translate: width 1s ease-in-out;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .caseInfo_text_field_input, .caseInfo_select_field_input {
+    width: 48vw;
+    translate: width 1s ease-in-out;
+  }
 }
 

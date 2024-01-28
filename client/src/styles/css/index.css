@@ -357,25 +357,14 @@ aside.user_dashboard_sidebar div.div_for_scrolling div#sidebar_section_projectPa
     transition: transform 0.7s ease-in-out;
   }
 }
-main#user_dashboard_personal section.user_dashboard_contents {
-  overflow-y: scroll;
-  position: absolute;
-  top: 0;
-  left: 240px;
-  width: calc(100vw - 240px);
-  height: 100vh;
-  padding: 36px 10%;
-  background-color: #eeeeee;
-  transition: left 0.7s ease-in-out;
-}
-main#user_dashboard_personal section.user_dashboard_contents p {
+main#user_dashboard_main_frame p {
   font-size: 28px;
   font-weight: bold;
 }
-main#user_dashboard_personal section.user_dashboard_contents div.user_dashboard_fields {
+main#user_dashboard_main_frame div.user_dashboard_fields {
   margin-top: 24px;
 }
-main#user_dashboard_personal section.user_dashboard_contents div.user_dashboard_fields div.dashboard_field_titles {
+main#user_dashboard_main_frame div.user_dashboard_fields div.dashboard_field_titles {
   display: flex;
   justify-content: space-between;
   margin-top: 36px;
@@ -383,7 +372,7 @@ main#user_dashboard_personal section.user_dashboard_contents div.user_dashboard_
   font-weight: bold;
   font-size: 24px;
 }
-main#user_dashboard_personal section.user_dashboard_contents div.user_dashboard_fields div.dashboard_field_contentBox {
+main#user_dashboard_main_frame div.user_dashboard_fields div.dashboard_field_contentBox {
   display: flex;
   border-radius: 10px;
   padding: 12px 12px 36px 12px;
@@ -394,9 +383,6 @@ table.task_manager_list {
   padding: 0 16px;
   width: 95%;
   font-size: 14px;
-}
-table.task_manager_list tr {
-  background: linear-gradient(135deg, #eeeeee, #cccccc);
 }
 table.task_manager_list tr:not(:first-child):hover {
   filter: brightness(1.05);
@@ -428,7 +414,7 @@ table.task_manager_list tr th:last-child {
 table.task_manager_list tr td {
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 150px;
+  max-width: 120px;
   font-weight: bold;
   white-space: nowrap;
   cursor: pointer;
@@ -500,17 +486,10 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
   height: 48px;
 }
 
-@media screen and (max-width: 768px) {
-  section.user_dashboard_contents {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    transition: left 0.7s ease-in-out;
-  }
-}
 @media screen and (max-width: 1024px) {
+  main#user_dashboard_main_frame div.user_dashboard_fields div.dashboard_field_contentBox {
+    display: block;
+  }
   div.user_dashboard_fields {
     margin-top: 24px;
   }
@@ -526,18 +505,20 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
   padding: 0px 14px;
   font-size: 14px;
   line-height: 0;
+  text-align: left;
   color: #f03e3e;
+  float: left;
 }
 
-.text_field_row {
+.login_text_field_row {
   padding: 8px 0;
 }
 
-.text_field_row_main {
+.login_text_field_row_main {
   height: 72px;
 }
 
-.text_field_label {
+.login_text_field_label {
   display: block;
   padding-left: 14px;
   text-transform: capitalize;
@@ -546,7 +527,7 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
   font-weight: bold;
 }
 
-.text_field_input {
+.login_text_field_input {
   display: block;
   width: 100%;
   height: 42px;
@@ -556,8 +537,129 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
   color: #333333;
 }
 
+.caseInfo_text_field_label {
+  display: flex;
+  align-items: center;
+  padding-left: 18px;
+  width: 120px;
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: bold;
+  color: #666666;
+}
+
+.caseInfo_text_field_input {
+  margin: 16px 8px;
+  padding: 8px 24px;
+  width: 40vw;
+  height: 48px;
+  border-radius: 15px;
+  font-size: 16px;
+  translate: width 1s ease-in-out;
+}
+
+.caseInfo_select_field_input {
+  margin: 8px;
+  padding: 8px 24px;
+  width: 40vw;
+  height: 48px;
+  border-radius: 15px;
+  font-size: 16px;
+  translate: width 1s ease-in-out;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .caseInfo_text_field_input, .caseInfo_select_field_input {
+    width: 30vw;
+    translate: width 1s ease-in-out;
+  }
+}
+@media screen and (max-width: 768px) {
+  .caseInfo_text_field_input, .caseInfo_select_field_input {
+    width: 48vw;
+    translate: width 1s ease-in-out;
+  }
+}
+div.caseInfo_table {
+  background-color: #ffffff;
+  padding: 58px 24px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-size: 24px;
+}
+div.caseInfo_table div.caseInfo_sectionBox {
+  margin-left: auto;
+  margin-right: auto;
+}
+div.caseInfo_table h2.caseInfo_heading {
+  margin-bottom: 12px;
+  padding: 24px;
+  text-align: center;
+  line-height: 48px;
+}
+div.caseInfo_table div.caseInfo_outerRow {
+  display: flex;
+  width: 100%;
+}
+div.caseInfo_table div.caseInfo_btn_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 36px;
+}
+div.caseInfo_table div.caseInfo_btn_box :first-child {
+  background-color: #cccccc;
+}
+div.caseInfo_table div.caseInfo_btn_box :first-child:hover {
+  background-color: #333333;
+  color: white;
+}
+div.caseInfo_table div.caseInfo_btn_box :last-child {
+  background-color: #f7b233;
+}
+div.caseInfo_table div.caseInfo_btn_box :last-child:hover {
+  filter: brightness(1.2);
+}
+div.caseInfo_table div.caseInfo_btn_box button {
+  margin: 0px 2vw;
+  border: none;
+  padding: 18px 48px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 28px;
+  cursor: pointer;
+}
+div.caseInfo_table div.caseInfo_btn_box button :active {
+  transform: scale(0.98);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+main.user_dashboard_frame section.user_dashboard_contents {
+  overflow-y: scroll;
+  position: absolute;
+  top: 0;
+  left: 240px;
+  width: calc(100vw - 240px);
+  height: 100vh;
+  padding: 36px 10%;
+  background-color: #eeeeee;
+  transition: left 0.7s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  main.user_dashboard_frame section.user_dashboard_contents {
+    left: 0;
+    width: 100vw;
+    transition: left 0.7s ease-in-out;
+  }
 }/*# sourceMappingURL=index.css.map */

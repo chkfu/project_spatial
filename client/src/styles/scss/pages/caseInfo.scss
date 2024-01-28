@@ -1,0 +1,66 @@
+@use '../elements/colors.scss' as colors;
+@use '../elements/fonts.scss' as fonts;
+
+
+
+// (A) MAIN
+
+div.caseInfo_table {
+  background-color: colors.$grey_000;
+  padding: 58px 24px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-size: fonts.$para_size_700;
+
+  div.caseInfo_sectionBox{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  h2.caseInfo_heading {
+    margin-bottom: 12px;
+    padding: 24px;
+    text-align: center;
+    line-height: 48px;
+  }
+
+  div.caseInfo_outerRow {
+    display: flex;
+    width: 100%;
+  }
+
+  div.caseInfo_btn_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 36px;
+
+    :first-child {
+      background-color: colors.$grey_200;
+      &:hover {
+        background-color: colors.$grey_700;
+        color: white;
+      }
+    }
+    :last-child {
+      background-color: colors.$yellow_400;
+      &:hover {
+        filter: brightness(1.2);
+      }
+    }
+
+    button {
+      margin: 0px 2vw;
+      border: none;
+      padding: 18px 48px;
+      font-size: fonts.$para_size_200;
+      font-weight: bold;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      border-radius: 28px;
+      cursor: pointer;
+      :active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}

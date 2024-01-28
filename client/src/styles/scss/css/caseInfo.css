@@ -1,0 +1,53 @@
+div.caseInfo_table {
+  background-color: #ffffff;
+  padding: 58px 24px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-size: 24px;
+}
+div.caseInfo_table div.caseInfo_sectionBox {
+  margin-left: auto;
+  margin-right: auto;
+}
+div.caseInfo_table h2.caseInfo_heading {
+  margin-bottom: 12px;
+  padding: 24px;
+  text-align: center;
+  line-height: 48px;
+}
+div.caseInfo_table div.caseInfo_outerRow {
+  display: flex;
+  width: 100%;
+}
+div.caseInfo_table div.caseInfo_btn_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 36px;
+}
+div.caseInfo_table div.caseInfo_btn_box :first-child {
+  background-color: #cccccc;
+}
+div.caseInfo_table div.caseInfo_btn_box :first-child:hover {
+  background-color: #333333;
+  color: white;
+}
+div.caseInfo_table div.caseInfo_btn_box :last-child {
+  background-color: #f7b233;
+}
+div.caseInfo_table div.caseInfo_btn_box :last-child:hover {
+  filter: brightness(1.2);
+}
+div.caseInfo_table div.caseInfo_btn_box button {
+  margin: 0px 2vw;
+  border: none;
+  padding: 18px 48px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 28px;
+  cursor: pointer;
+}
+div.caseInfo_table div.caseInfo_btn_box button :active {
+  transform: scale(0.98);
+}/*# sourceMappingURL=caseInfo.css.map */

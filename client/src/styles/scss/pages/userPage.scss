@@ -6,57 +6,47 @@
 // (A) MAIN
 
 // (1) Outer Frame
-main#user_dashboard_personal {
-  
-  section.user_dashboard_contents {
-    overflow-y: scroll;
-    position: absolute;
-    top: 0;
-    left: 240px;
-    width: calc(100vw - 240px);
-    height: 100vh;      
-    padding: 36px 10%;
-    background-color: colors.$grey_100;
-    transition: left 0.7s ease-in-out;
 
-    // (1a) welcome message
+main#user_dashboard_main_frame {
 
-    p {
-      font-size: fonts.$para_size_800;
+  // (1a) welcome message
+
+  p {
+    font-size: fonts.$para_size_800;
+    font-weight: bold;
+  }
+
+  // (1b) panel region
+
+  div.user_dashboard_fields {
+    margin-top: 24px;
+
+    div.dashboard_field_titles {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 36px;
+      padding: 4px 0;
       font-weight: bold;
+      font-size: fonts.$para_size_700;
     }
 
-    // (1b) panel region
-
-    div.user_dashboard_fields {
-      margin-top: 24px;
-
-      div.dashboard_field_titles {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 36px;
-        padding: 4px 0;
-        font-weight: bold;
-        font-size: fonts.$para_size_700;
-      }
-
-      div.dashboard_field_contentBox {
-        display: flex;
-        border-radius: 10px;
-        padding: 12px 12px 36px 12px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-      }
+    div.dashboard_field_contentBox {
+      display: flex;
+      border-radius: 10px;
+      padding: 12px 12px 36px 12px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
   }
 }
 
 
+
 // (2) Tables - Task Managers
 
 table.task_manager_list {
-padding: 0 16px;
-width: 95%;
-font-size: fonts.$para_size_200;
+  padding: 0 16px;
+  width: 95%;
+  font-size: fonts.$para_size_200;
 
   tr {
 
@@ -94,7 +84,7 @@ font-size: fonts.$para_size_200;
     td {
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 150px;
+      max-width: 120px;
       font-weight: bold;
       white-space: nowrap;
       cursor: pointer;
@@ -183,18 +173,18 @@ div.dashboard_field_bodysRows {
 
 // (B) RESPONSIVE DESIGN
 
-@media screen and (max-width: 768px) {
-  section.user_dashboard_contents {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    transition: left 0.7s ease-in-out;
-  }
-}
+// @media screen and (max-width: 768px) {
+// }
 
 @media screen and (max-width: 1024px) { 
+
+  main#user_dashboard_main_frame {
+    div.user_dashboard_fields {
+      div.dashboard_field_contentBox {
+        display: block;
+      }
+    }
+  }
 
     div.user_dashboard_fields {
       margin-top: 24px;

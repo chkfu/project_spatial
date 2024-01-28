@@ -5,10 +5,10 @@ import UserSidebar from "../components/UserSidebar";
 
 export default function User() {
   return (
-    <main id="user_dashboard_personal">
+    <main id="user_dashboard_main_frame" className="user_dashboard_frame">
       <UserSidebar />
       {/* B. DashBoard */}
-      <section className="user_dashboard_contents">
+      <section id="user_dashboard_content_personal" className="user_dashboard_contents">
         <p>Welcome, User.</p>
         <ProjectMain />
       </section>
