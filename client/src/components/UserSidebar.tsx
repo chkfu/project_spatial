@@ -13,7 +13,7 @@ export default function UserSidebar() {
           <ProjectPanel />
         </div>
       </aside>
-    </main>
+    </main >
   );
 }
 

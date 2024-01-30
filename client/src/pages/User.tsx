@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import UserSidebar from "../components/UserSidebar";
 
 
@@ -9,7 +10,7 @@ export default function User() {
       <UserSidebar />
       {/* B. DashBoard */}
       <section id="user_dashboard_content_personal" className="user_dashboard_contents">
-        <p>Welcome, User.</p>
+        <p className="user_section_fading user_section_fading01">Welcome, User.</p>
         <ProjectMain />
       </section>
     </main>
@@ -33,7 +34,7 @@ const ProjectMain = function () {
 
 function Field_TaskManager() {
   return (
-    <div>
+    <div className="user_section_fading user_section_fading02">
       <Dashboard_SectTitle name="Task Manager" />
       {/* (2) folder section */}
       <div className="dashboard_field_contentBox">
@@ -47,7 +48,7 @@ function Field_TaskManager() {
 function Field_WorkPanel() {
   const WORK_CONSOLE_LIST: Array<string> = ["Local Drive", "Shared Drive"];
   return (
-    <div>
+    <div className="user_section_fading user_section_fading03">
       <Dashboard_SectTitle name="Work Console" />
       <div className="dashboard_field_contentBox">
         {

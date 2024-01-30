@@ -486,6 +486,19 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
   height: 48px;
 }
 
+.user_section_fading.user_section_fading01 {
+  animation-name: user_section_main_fading_animate;
+  animation-duration: 1.5s;
+}
+.user_section_fading.user_section_fading02 {
+  animation-name: user_section_child_fading_animate;
+  animation-duration: 2s;
+}
+.user_section_fading.user_section_fading03 {
+  animation-name: user_section_child_fading_animate;
+  animation-duration: 2.5s;
+}
+
 @media screen and (max-width: 1024px) {
   main#user_dashboard_main_frame div.user_dashboard_fields div.dashboard_field_contentBox {
     display: block;
@@ -495,6 +508,30 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
   }
   div.user_dashboard_fields div.dashboard_field_contentBox {
     display: block;
+  }
+}
+@keyframes user_section_main_fading_animate {
+  0% {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes user_section_child_fading_animate {
+  0% {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
   }
 }
 .form_container {
@@ -513,6 +550,9 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
 .login_text_field_row {
   padding: 8px 0;
 }
+.login_text_field_row:first-child {
+  margin-top: 18px;
+}
 
 .login_text_field_row_main {
   height: 72px;
@@ -520,6 +560,7 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
 
 .login_text_field_label {
   display: block;
+  float: left;
   padding-left: 14px;
   text-transform: capitalize;
   color: #666666;
@@ -528,7 +569,7 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
 }
 
 .login_text_field_input {
-  display: block;
+  overflow: hidden;
   width: 100%;
   height: 42px;
   padding-left: 14px;
@@ -537,76 +578,92 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
   color: #333333;
 }
 
-.caseInfo_text_field_label {
-  display: flex;
-  align-items: center;
-  padding-left: 18px;
-  width: 120px;
-  text-transform: capitalize;
-  font-size: 16px;
-  font-weight: bold;
-  color: #666666;
-}
-
 .caseInfo_text_field_input {
-  margin: 16px 8px;
-  padding: 8px 24px;
-  width: 40vw;
-  height: 48px;
+  margin: 0px 8px 16px 8px;
+  padding: 8px 18px;
+  width: 90%;
+  max-width: 90%;
+  height: 42px;
   border-radius: 15px;
   font-size: 16px;
   translate: width 1s ease-in-out;
 }
 
 .caseInfo_select_field_input {
-  margin: 8px;
-  padding: 8px 24px;
-  width: 40vw;
-  height: 48px;
+  margin: 0px 8px 16px 8px;
+  padding: 8px 18px;
+  width: 100%;
+  height: 42px;
   border-radius: 15px;
   font-size: 16px;
   translate: width 1s ease-in-out;
   cursor: pointer;
 }
 
-@media screen and (max-width: 1024px) {
-  .caseInfo_text_field_input, .caseInfo_select_field_input {
-    width: 30vw;
-    translate: width 1s ease-in-out;
-  }
-}
 @media screen and (max-width: 768px) {
-  .caseInfo_text_field_input, .caseInfo_select_field_input {
-    width: 48vw;
-    translate: width 1s ease-in-out;
+  .caseInfo_text_field_input {
+    width: 100%;
   }
 }
+section#user_dashboard_content_caseinfo {
+  overflow-y: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: calc(100vw - 240px);
+  height: 100vh;
+  padding: 24px;
+  background: #ffffff;
+  background: url("/images/case_bg_info.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.7s ease-in-out;
+}
+
 div.caseInfo_table {
+  overflow-y: scroll;
+  max-width: 640px;
+  padding: 58px;
   background-color: #ffffff;
-  padding: 58px 24px;
+  opacity: 0.8;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   font-size: 24px;
+  filter: brightness(0.8);
+  animation-name: caseinfo_table_fading;
+  animation-duration: 1s;
+  animation-delay: 0.7s;
 }
 div.caseInfo_table div.caseInfo_sectionBox {
   margin-left: auto;
   margin-right: auto;
 }
-div.caseInfo_table h2.caseInfo_heading {
-  margin-bottom: 12px;
-  padding: 24px;
+div.caseInfo_table p.caseInfo_heading {
+  margin-bottom: 24px;
   text-align: center;
   line-height: 48px;
+  font-size: 28px;
+  font-weight: bold;
+}
+div.caseInfo_table div.caseInfo_flex_double_input_frame {
+  display: flex;
+  width: 100%;
 }
 div.caseInfo_table div.caseInfo_outerRow {
   display: flex;
   width: 100%;
+}
+div.caseInfo_table div.caseInfo_outerRow div.caseInfo_text_field_row {
+  width: 100%;
+  padding: 4px;
 }
 div.caseInfo_table div.caseInfo_btn_box {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 36px;
+  padding: 24px;
 }
 div.caseInfo_table div.caseInfo_btn_box :first-child {
   background-color: #cccccc;
@@ -635,6 +692,36 @@ div.caseInfo_table div.caseInfo_btn_box button :active {
   transform: scale(0.98);
 }
 
+@media screen and (max-width: 1024px) {
+  section#user_dashboard_content_personal {
+    padding: 0;
+    transition: all 0.7s ease-in-out;
+  }
+}
+@media screen and (max-width: 768px) {
+  section#user_dashboard_content_personal {
+    width: 100vw;
+    padding: 0;
+    transition: all 0.7s ease-in-out;
+  }
+  section#user_dashboard_content_personal p.caseInfo_heading {
+    font-size: 24px;
+  }
+}
+@keyframes caseinfo_table_fading {
+  0% {
+    transform: translateY(-800px);
+    background-color: #ffffff;
+    opacity: 0.1;
+    filter: brightness(0.8);
+  }
+  100% {
+    transform: translateY(0px);
+    background-color: #ffffff;
+    opacity: 0.8;
+    filter: brightness(0.8);
+  }
+}
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

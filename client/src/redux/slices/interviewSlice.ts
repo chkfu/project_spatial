@@ -8,12 +8,12 @@ interface InterviewState {
   venue: string;
   host: string;
   _guest: string;
-  lang: string;
+  language: string;
   title: string;
   summary: string;
   auth: boolean;
-  createdAt: number;
-  updatedAt: number | null;
+  created_at: number;
+  updated_at: number | null;
 }
 
 // Define the initial state using that type
@@ -25,10 +25,10 @@ const initialState: InterviewState = {
   venue: "",
   host: "",
   _guest: "",
-  lang: 'en-uk',
+  language: 'en-uk',
   auth: false,
-  createdAt: new Date().getTime(),
-  updatedAt: null
+  created_at: new Date().getTime(),
+  updated_at: null
 };
 
 export const interviewSlice = createSlice({
@@ -58,7 +58,7 @@ export const interviewSlice = createSlice({
       state._guest = action.payload;
     },
     updateLang: (state, action: PayloadAction<string>) => {
-      state.lang = action.payload;
+      state.language = action.payload;
     },
     updateAuth: (state, action: PayloadAction<boolean>) => {
       state.auth = action.payload;
@@ -71,10 +71,10 @@ export const interviewSlice = createSlice({
         state.venue = "",
         state.host = "",
         state._guest = "",
-        state.lang = 'en-uk',
+        state.language = 'en-uk',
         state.auth = false,
-        state.createdAt = new Date().getTime(),
-        state.updatedAt = null;
+        state.created_at = new Date().getTime(),
+        state.updated_at = null;
     },
   },
 });

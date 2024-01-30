@@ -1,4 +1,5 @@
 import { Field } from 'formik';
+import { OuterRowStyleDetector, InnerRowStyleDetector, LabelStyleDetector } from './TextFieldReuse';
 
 
 // TYPES
@@ -14,17 +15,24 @@ export interface SelectFieldReuseType {
 // EXPORT
 export default function SelectFieldReuse(props: SelectFieldReuseType) {
   return (
-    <Field
-      className={InputStyleDetector(props.path)}
-      name={props.name}
-      as="select"
-      onChange={props.changeFn}>
-      {
-        Object.keys(props.options).map(key => (
-          <option value={key}>{props.options[key]}</option>
-        ))
-      }
-    </Field>
+    <div className={OuterRowStyleDetector(props.path)}>
+      <div className={InnerRowStyleDetector(props.path)}>
+        <label className={LabelStyleDetector(props.path)} htmlFor={props.name}>
+          {props.name.split("_").join(" ")}
+        </label>
+        <Field
+          className={InputStyleDetector(props.path)}
+          name={props.name}
+          as="select"
+          onChange={props.changeFn}>
+          {
+            Object.keys(props.options).map(key => (
+              <option value={key}>{props.options[key]}</option>
+            ))
+          }
+        </Field>
+      </div>
+    </div>
   );
 }
 

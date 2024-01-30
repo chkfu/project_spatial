@@ -169,6 +169,22 @@ div.dashboard_field_bodysRows {
   }
 }
 
+// (4) fading elements
+
+.user_section_fading {
+  &.user_section_fading01 {
+    animation-name: user_section_main_fading_animate;
+    animation-duration: 1.5s;
+  }
+  &.user_section_fading02 {
+    animation-name: user_section_child_fading_animate;
+    animation-duration: 2s;
+  }
+  &.user_section_fading03 {
+    animation-name: user_section_child_fading_animate;
+    animation-duration: 2.5s;
+  }
+}
 
 
 // (B) RESPONSIVE DESIGN
@@ -193,4 +209,33 @@ div.dashboard_field_bodysRows {
         display: block;
       }
     }
+}
+
+
+// (C) AIMATIONS
+
+@keyframes user_section_main_fading_animate {
+  0% {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes user_section_child_fading_animate {
+  0% {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }

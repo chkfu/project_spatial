@@ -8,6 +8,7 @@ import TextFieldReuse from '../formik/reuse/TextFieldReuse';
 import SelectFieldReuse from '../formik/reuse/SelectFieldReuse';
 
 
+
 // (I) EXPORT
 
 export default function User() {
@@ -15,7 +16,7 @@ export default function User() {
     <main id="user_dashboard_caseInfo" className="user_dashboard_frame">
       <UserSidebar />
       {/* B. DashBoard */}
-      <section id="user_dashboard_content_personal" className="user_dashboard_contents">
+      <section id="user_dashboard_content_caseinfo" className="user_dashboard_contents">
         <CaseRegister />
       </section>
     </main >
@@ -66,15 +67,23 @@ function CaseRegister() {
     venue: interview.venue,
     host: interview.host,
     guest: interview._guest,
-    lang: interview.lang,
+    language: interview.language,
     summary: interview.summary,
     auth: interview.auth,
-    createdAt: interview.createdAt
+    created_at: interview.created_at
   };
 
   // FORMIK VALIDATION
   const caseinfoValidateSchema = Yup.object().shape({
-
+    id: Yup.string().required('ID is required.'),
+    time: Yup.number().required('Time is required.'),
+    venue: Yup.string().required('Venue is required.'),
+    host: Yup.string().required('Host is required.'),
+    guest: Yup.string().required('Guest is required.'),
+    lang: Yup.string().required('Language is required.'),
+    summary: Yup.string(),
+    auth: Yup.boolean().required("Guest's Authorisation is required."),
+    createdAt: Yup.number().required("Created Date is required.")
   });
 
 
@@ -89,20 +98,30 @@ function CaseRegister() {
         <Form>
           <div className="caseInfo_table">
             {/* 1. Heading */}
-            <h2 className="caseInfo_heading">Start Your Interview</h2>
+            <p className="caseInfo_heading">Start Your Interview</p>
             {/* 2. Input Fields */}
-            <div>
-              <CaseInfo_TextField name='id' value={interview._id} dispatch={dispatch} setFieldValue={setFieldValue} />
-              <CaseInfo_TextField name='title' value={interview.title} dispatch={dispatch} setFieldValue={setFieldValue} />
-              <CaseInfo_TextField name='summary' value={interview.summary} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
-              <CaseInfo_TextField name='time'
-                value={`${temp_yyyy.toString()}-${temp_mm + 1 > 10 ? ((temp_mm + 1).toString()) : ("0" + (temp_mm + 1).toString())}-${temp_dd > 10 ? temp_dd.toString() : ("0" + temp_dd.toString())}`}
-                type="date" dispatch={dispatch} setFieldValue={setFieldValue} />
-              <CaseInfo_TextField name='venue' value={interview.venue} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
-              <CaseInfo_TextField name='host' value={interview.host} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
-              <CaseInfo_TextField name='guest' value={interview._guest} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
-              <CaseInfo_SelectField name='lang' value={interview.lang} label="language" path="case-information" options={LanguageList} changeFn={(event: React.ChangeEvent<HTMLSelectElement>) => ChangeSelectIdentifier(event, 'lang', dispatch, setFieldValue)} />
-              <CaseInfo_TextField name='createdAt' value={`${td_yyyy.toString()} / ${temp_mm + 1 > 10 ? ((td_mm + 1).toString()) : ("0" + (td_mm + 1).toString())} / ${td_dd > 10 ? td_dd.toString() : ("0" + temp_dd.toString())}`} dispatch={dispatch} setFieldValue={setFieldValue} disabled={true} />
+            <div className="caseInfo_input_container">
+              <div className="caseInfo_flex_double_input_frame">
+                <CaseInfo_TextField name='id' value={interview._id} dispatch={dispatch} setFieldValue={setFieldValue} />
+                <CaseInfo_TextField name='title' value={interview.title} dispatch={dispatch} setFieldValue={setFieldValue} />
+              </div>
+              <div className="caseInfo_flex_double_input_frame">
+                <CaseInfo_TextField name='summary' value={interview.summary} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
+              </div>
+              <div className="caseInfo_flex_double_input_frame">
+                <CaseInfo_TextField name='time'
+                  value={`${temp_yyyy.toString()}-${temp_mm + 1 > 10 ? ((temp_mm + 1).toString()) : ("0" + (temp_mm + 1).toString())}-${temp_dd > 10 ? temp_dd.toString() : ("0" + temp_dd.toString())}`}
+                  type="date" dispatch={dispatch} setFieldValue={setFieldValue} />
+                <CaseInfo_TextField name='venue' value={interview.venue} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
+              </div>
+              <div className="caseInfo_flex_double_input_frame">
+                <CaseInfo_TextField name='host' value={interview.host} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
+                <CaseInfo_TextField name='guest' value={interview._guest} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
+              </div>
+              <div className="caseInfo_flex_double_input_frame">
+                <CaseInfo_SelectField name='lang' value={interview.language} label="language" path="case-information" options={LanguageList} changeFn={(event: React.ChangeEvent<HTMLSelectElement>) => ChangeSelectIdentifier(event, 'lang', dispatch, setFieldValue)} />
+                <CaseInfo_TextField name='created_at' value={`${td_yyyy.toString()}/${temp_mm + 1 > 10 ? ((td_mm + 1).toString()) : ("0" + (td_mm + 1).toString())}/${td_dd > 10 ? td_dd.toString() : ("0" + temp_dd.toString())}`} dispatch={dispatch} setFieldValue={setFieldValue} disabled={true} />
+              </div>
             </div>
             {/* 3. Btn Box */}
             <div className="caseInfo_btn_box">
@@ -120,19 +139,12 @@ function CaseRegister() {
 function CaseInfo_SelectField(props: CaseInfo_SelectFieldType): React.ReactNode {
   return (
     <div className="caseInfo_outerRow">
-      {/* label field */}
-      <label className="caseInfo_text_field_label" htmlFor={props.name}>
-        {props.label}
-      </label>
-      {/* select field */}
-      <div>
-        <SelectFieldReuse
-          path={props.path}
-          name={props.name}
-          value={props.value}
-          options={props.options}
-          changeFn={props.changeFn} />
-      </div>
+      <SelectFieldReuse
+        path={props.path}
+        name={props.name}
+        value={props.value}
+        options={props.options}
+        changeFn={props.changeFn} />
     </div>
   );
 };
@@ -140,11 +152,8 @@ function CaseInfo_SelectField(props: CaseInfo_SelectFieldType): React.ReactNode 
 function CaseInfo_TextField(props: { name: string, value: any, type?: string, dispatch: any, setFieldValue: any, disabled?: boolean; }) {
   return (
     <div className="caseInfo_outerRow">
-      <label htmlFor={props.name} className="caseInfo_text_field_label">{props.name}</label>
-      <div>
-        <TextFieldReuse changeFn={(event: React.ChangeEvent<HTMLInputElement>) => { ChangeInputIdentifier(event, props.name, props.setFieldValue, props.dispatch); }}
-          path="case-information" name={props.name} type={props.type || 'text'} value={props.value} disabled={props.disabled} />
-      </div>
+      <TextFieldReuse changeFn={(event: React.ChangeEvent<HTMLInputElement>) => { ChangeInputIdentifier(event, props.name, props.setFieldValue, props.dispatch); }}
+        path="case-information" name={props.name} type={props.type || 'text'} value={props.value} disabled={props.disabled} />
     </div>
   );
 };

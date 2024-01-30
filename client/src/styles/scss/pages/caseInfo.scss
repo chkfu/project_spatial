@@ -5,27 +5,62 @@
 
 // (A) MAIN
 
+section#user_dashboard_content_caseinfo {
+  overflow-y: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: calc(100vw - 240px);
+  height: 100vh;
+  padding: 24px;
+  background: colors.$grey_000;
+  background: url('/images/case_bg_info.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.7s ease-in-out;
+}
+
 div.caseInfo_table {
+  overflow-y: scroll;
+  max-width: 640px;
+  padding: 58px;
   background-color: colors.$grey_000;
-  padding: 58px 24px;
+  opacity: 0.8;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   font-size: fonts.$para_size_700;
+  filter: brightness(0.8);
+  animation-name: caseinfo_table_fading;
+  animation-duration: 1s;
+  animation-delay: 0.7s;
 
-  div.caseInfo_sectionBox{
+  div.caseInfo_sectionBox {
     margin-left: auto;
     margin-right: auto;
   }
 
-  h2.caseInfo_heading {
-    margin-bottom: 12px;
-    padding: 24px;
+  p.caseInfo_heading {
+    margin-bottom: 24px;
     text-align: center;
     line-height: 48px;
+    font-size: fonts.$para_size_800;
+    font-weight: bold;
+  }
+
+  div.caseInfo_flex_double_input_frame {
+    display: flex;
+     width: 100%;
   }
 
   div.caseInfo_outerRow {
     display: flex;
     width: 100%;
+
+    div.caseInfo_text_field_row {
+      width: 100%;
+      padding: 4px;
+    }
   }
 
   div.caseInfo_btn_box {
@@ -33,7 +68,7 @@ div.caseInfo_table {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 36px;
+    padding: 24px;
 
     :first-child {
       background-color: colors.$grey_200;
@@ -62,5 +97,45 @@ div.caseInfo_table {
         transform: scale(0.98);
       }
     }
+  }
+}
+
+
+
+// (B RESPONSIVE DESIGNS
+
+@media screen and (max-width: 1024px) {
+  section#user_dashboard_content_personal {
+    padding: 0;
+    transition: all 0.7s ease-in-out;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  section#user_dashboard_content_personal {
+    width: 100vw;
+    padding: 0;
+    transition: all 0.7s ease-in-out;
+
+    p.caseInfo_heading {
+      font-size: fonts.$para_size_700;
+    }
+  }
+}
+
+
+
+@keyframes caseinfo_table_fading {
+  0% {
+    transform: translateY(-800px);
+    background-color: colors.$grey_000;
+    opacity: 0.1;
+    filter: brightness(0.8);
+  }
+  100% {
+    transform: translateY(0px);
+    background-color: colors.$grey_000;
+    opacity: 0.8;
+    filter: brightness(0.8);
   }
 }

@@ -6,10 +6,10 @@ import ErrorMsgReuse from './ErrorMsgReuse';
 interface FormikTextFieldProps {
   path?: string,
   name: string,
-  type: string;
-  placeholder?: string;
-  value?: string;
-  changeFn?: any;
+  type: string,
+  placeholder?: string,
+  value?: string,
+  changeFn?: any,
   disabled?: boolean;
 };
 
@@ -18,12 +18,9 @@ export default function TextFieldReuse(props: FormikTextFieldProps) {
   return (
     <div className={OuterRowStyleDetector(props.path)}>
       <div className={InnerRowStyleDetector(props.path)}>
-        {
-          props.path === 'login' ?
-            <label className={LabelStyleDetector(props.path)} htmlFor={props.name}>
-              {props.name.split("_").join(" ")}
-            </label> : <></>
-        }
+        <label className={LabelStyleDetector(props.path)} htmlFor={props.name}>
+          {props.name.split("_").join(" ")}
+        </label>
         <Field
           className={InputStyleDetector(props.path)}
           as="input"
@@ -43,22 +40,22 @@ export default function TextFieldReuse(props: FormikTextFieldProps) {
 
 // FUNCTIONS
 
-function OuterRowStyleDetector(path?: string) {
+export function OuterRowStyleDetector(path?: string) {
   if (path === 'login') return "login_text_field_row";
   if (path === 'case-information') return 'caseInfo_text_field_row';
   else return "";
 }
 
 
-function InnerRowStyleDetector(path?: string) {
+export function InnerRowStyleDetector(path?: string) {
   if (path === 'login') return "login_text_field_row_main";
   if (path === 'case-information') return 'caseInfo_text_field_row_main';
   else return "";
 }
 
-function LabelStyleDetector(path?: string) {
+export function LabelStyleDetector(path?: string) {
   if (path === 'login') return "login_text_field_label";
-  if (path === 'case-information') return 'caseInfo_text_field_label';
+  if (path === 'case-information') return 'login_text_field_label';
   else return "";
 }
 

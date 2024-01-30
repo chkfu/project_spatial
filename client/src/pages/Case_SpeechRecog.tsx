@@ -5,9 +5,6 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-// const SpeechGrammarList = window.webkitSpeechGrammarList;
-// const SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
-
 
 const recognition = new SpeechRecognition();
 
@@ -40,6 +37,7 @@ export default function SpeechRecog() {
           newMsg.map((message: string): React.ReactNode => {
             return (
               <div key={uuidv4()}>
+                <p>speaker</p>
                 <p style={{ border: '2px solid blue', display: "inline-block", width: 'auto', padding: '8px' }}> {message} </p>
               </div>
             );

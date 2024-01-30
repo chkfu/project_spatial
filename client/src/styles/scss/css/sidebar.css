@@ -1,0 +1,91 @@
+main.user_dashboard_layouts {
+  display: flex;
+}
+
+aside.user_dashboard_sidebar {
+  overflow-y: scroll;
+  width: 240px;
+  height: 100vh;
+  background: linear-gradient(to right, #000000 0%, #333333 100%);
+  padding: 20px 0;
+  transition: transform 0.7s ease-in-out;
+}
+aside.user_dashboard_sidebar div#sidebar_section_titleBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+}
+aside.user_dashboard_sidebar div#sidebar_section_titleBox h1 {
+  color: #eeeeee;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling {
+  margin-top: 24px;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels {
+  color: #eeeeee;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelheads {
+  padding-left: 18px;
+  display: flex;
+  align-items: center;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelheads img {
+  width: 16px;
+  height: 16px;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelheads h4 b {
+  padding: 0 8px;
+  font-size: 18px;
+  line-height: 28px;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys ul {
+  list-style-type: none;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys ul li {
+  padding-left: 46px;
+  padding-right: 8px;
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys ul li:hover {
+  background-color: #333333;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys details summary {
+  padding-left: 46px;
+  font-size: 16px;
+  line-height: 24px;
+  list-style-image: url("/icons/folder.svg");
+  cursor: pointer;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys details summary:hover {
+  background-color: #333333;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys details summary span {
+  padding-left: 4px;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys details ul li {
+  padding-left: 62px;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys details ul li:hover {
+  background-color: #333333;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys details ul li img {
+  width: 15px;
+  height: 15px;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div.sidebar_section_panels div.sidebar_section_panelbodys details ul li span {
+  padding-left: 4px;
+}
+aside.user_dashboard_sidebar div.div_for_scrolling div#sidebar_section_projectPanel {
+  margin-top: 12px;
+  color: #eeeeee;
+}
+
+@media screen and (max-width: 768px) {
+  main.user_dashboard_layouts aside.user_dashboard_sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.7s ease-in-out;
+  }
+}/*# sourceMappingURL=sidebar.css.map */
