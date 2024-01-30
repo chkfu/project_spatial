@@ -75,15 +75,16 @@ function CaseRegister() {
 
   // FORMIK VALIDATION
   const caseinfoValidateSchema = Yup.object().shape({
-    id: Yup.string().required('ID is required.'),
-    time: Yup.number().required('Time is required.'),
-    venue: Yup.string().required('Venue is required.'),
-    host: Yup.string().required('Host is required.'),
-    guest: Yup.string().required('Guest is required.'),
-    lang: Yup.string().required('Language is required.'),
+    id: Yup.string().min(2).required('* ID is required.'),
+    time: Yup.number().required('* Time is required.'),
+    title: Yup.string().min(2).required('* Title is required.'),
+    venue: Yup.string().min(2).required('* Venue is required.'),
+    host: Yup.string().min(2).required('* Host is required.'),
+    guest: Yup.string().min(2).required('* Guest is required.'),
+    language: Yup.string().min(2).required('* Language is required.'),
     summary: Yup.string(),
-    auth: Yup.boolean().required("Guest's Authorisation is required."),
-    createdAt: Yup.number().required("Created Date is required.")
+    auth: Yup.boolean().required("* Guest's Authorization is required."),
+    created_at: Yup.date().required("* Created Date is required.")
   });
 
 
@@ -92,7 +93,7 @@ function CaseRegister() {
     <Formik
       enableReinitialize={true}
       initialValues={caseInfoInitialValues}
-      validateSchema={caseinfoValidateSchema}
+      validationSchema={caseinfoValidateSchema}
       onSubmit={(values: any) => CaseInfo_Submit_Handler(navigate, values)}>
       {({ setFieldValue }) => (
         <Form>
@@ -210,14 +211,14 @@ function ChangeInputIdentifier(event: React.ChangeEvent<HTMLInputElement>, name:
     setFieldValue('guest', event.target.value);
     dispatch(updateGuest(event.target.value));
   }
-  else if (name = "createdAt") {
-    setFieldValue('createdAt', new Date().toDateString());
+  else if (name === "created_at") {
+    setFieldValue('created_at', new Date().toDateString());
     dispatch(updateGuest(event.target.value));
   }
 }
 
 function ChangeSelectIdentifier(event: React.ChangeEvent<HTMLSelectElement>, name: string, dispatch: any, setFieldValue: any) {
-  if (name === 'lang') {
+  if (name === 'language') {
     setFieldValue(name, event.target.value);
     dispatch(updateLang(event.target.value));
   }

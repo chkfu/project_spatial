@@ -59,6 +59,7 @@ div.caseInfo_table {
 
     div.caseInfo_text_field_row {
       width: 100%;
+      height: 84px;
       padding: 4px;
     }
   }
@@ -105,14 +106,14 @@ div.caseInfo_table {
 // (B RESPONSIVE DESIGNS
 
 @media screen and (max-width: 1024px) {
-  section#user_dashboard_content_personal {
+  section#user_dashboard_content_caseinfo {
     padding: 0;
     transition: all 0.7s ease-in-out;
   }
 }
 
 @media screen and (max-width: 768px) {
-  section#user_dashboard_content_personal {
+  section#user_dashboard_content_caseinfo {
     width: 100vw;
     padding: 0;
     transition: all 0.7s ease-in-out;

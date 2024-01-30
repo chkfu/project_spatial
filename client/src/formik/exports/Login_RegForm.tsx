@@ -23,15 +23,15 @@ export default function Login_RegForm() {
   // FORMIK VALIDATION
   const regValidateSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Invalid email address.")
-      .required('Email address is required.'),
+      .email("* Invalid email address.")
+      .required('* Email address is required.'),
     password: Yup.string()
-      .min(8, "Password contains at least 8 digits.")
+      .min(8, "* Password contains at least 8 digits.")
       .matches(/^[A-Za-z][A-Za-z0-9!@#$%^&*]*$/, 'Password contains latin characters, numbers and symbols.')
-      .required('Password is required.'),
+      .required('* Password is required.'),
     confirm_password: Yup.string()
       .oneOf([Yup.ref('password')], '* Password Confirm does not match.')
-      .required('Password Confirmation is required.')
+      .required('* Password Confirmation is required.')
   });
 
   // FUNCTIONS

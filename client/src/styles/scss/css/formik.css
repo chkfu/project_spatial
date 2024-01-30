@@ -5,9 +5,10 @@
 .formik_error_msgs {
   padding: 0px 14px;
   font-size: 14px;
-  line-height: 0;
+  line-height: 14px;
   text-align: left;
   color: #f03e3e;
+  transform: translateY(-4px);
   float: left;
 }
 
@@ -43,7 +44,7 @@
 }
 
 .caseInfo_text_field_input {
-  margin: 0px 8px 16px 8px;
+  margin: 0px 8px 8px 8px;
   padding: 8px 18px;
   width: 90%;
   max-width: 90%;

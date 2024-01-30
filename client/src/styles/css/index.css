@@ -541,9 +541,10 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
 .formik_error_msgs {
   padding: 0px 14px;
   font-size: 14px;
-  line-height: 0;
+  line-height: 14px;
   text-align: left;
   color: #f03e3e;
+  transform: translateY(-4px);
   float: left;
 }
 
@@ -579,7 +580,7 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
 }
 
 .caseInfo_text_field_input {
-  margin: 0px 8px 16px 8px;
+  margin: 0px 8px 8px 8px;
   padding: 8px 18px;
   width: 90%;
   max-width: 90%;
@@ -656,6 +657,7 @@ div.caseInfo_table div.caseInfo_outerRow {
 }
 div.caseInfo_table div.caseInfo_outerRow div.caseInfo_text_field_row {
   width: 100%;
+  height: 84px;
   padding: 4px;
 }
 div.caseInfo_table div.caseInfo_btn_box {
@@ -693,18 +695,18 @@ div.caseInfo_table div.caseInfo_btn_box button :active {
 }
 
 @media screen and (max-width: 1024px) {
-  section#user_dashboard_content_personal {
+  section#user_dashboard_content_caseinfo {
     padding: 0;
     transition: all 0.7s ease-in-out;
   }
 }
 @media screen and (max-width: 768px) {
-  section#user_dashboard_content_personal {
+  section#user_dashboard_content_caseinfo {
     width: 100vw;
     padding: 0;
     transition: all 0.7s ease-in-out;
   }
-  section#user_dashboard_content_personal p.caseInfo_heading {
+  section#user_dashboard_content_caseinfo p.caseInfo_heading {
     font-size: 24px;
   }
 }
