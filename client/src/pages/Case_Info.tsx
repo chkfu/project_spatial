@@ -6,7 +6,7 @@ import { updateId, updateTitle, updateSummary, updateTime, updateVenue, updateHo
 import UserSidebar from "../components/UserSidebar";
 import TextFieldReuse from '../formik/reuse/TextFieldReuse';
 import SelectFieldReuse from '../formik/reuse/SelectFieldReuse';
-
+import bg_video from '/videos/caseinfo_bg_main.mp4';
 
 
 // (I) EXPORT
@@ -17,6 +17,10 @@ export default function User() {
       <UserSidebar />
       {/* B. DashBoard */}
       <section id="user_dashboard_content_caseinfo" className="user_dashboard_contents">
+        <video autoPlay muted id="caseinfo_video_bg">
+          <source src={bg_video} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         <CaseRegister />
       </section>
     </main >
@@ -120,7 +124,7 @@ function CaseRegister() {
                 <CaseInfo_TextField name='guest' value={interview._guest} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
               </div>
               <div className="caseInfo_flex_double_input_frame">
-                <CaseInfo_SelectField name='lang' value={interview.language} label="language" path="case-information" options={LanguageList} changeFn={(event: React.ChangeEvent<HTMLSelectElement>) => ChangeSelectIdentifier(event, 'lang', dispatch, setFieldValue)} />
+                <CaseInfo_SelectField name='language' value={interview.language} label="language" path="case-information" options={LanguageList} changeFn={(event: React.ChangeEvent<HTMLSelectElement>) => ChangeSelectIdentifier(event, 'language', dispatch, setFieldValue)} />
                 <CaseInfo_TextField name='created_at' value={`${td_yyyy.toString()}/${temp_mm + 1 > 10 ? ((td_mm + 1).toString()) : ("0" + (td_mm + 1).toString())}/${td_dd > 10 ? td_dd.toString() : ("0" + temp_dd.toString())}`} dispatch={dispatch} setFieldValue={setFieldValue} disabled={true} />
               </div>
             </div>

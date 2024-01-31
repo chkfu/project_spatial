@@ -622,6 +622,14 @@ section#user_dashboard_content_caseinfo {
   background-size: cover;
   transition: all 0.7s ease-in-out;
 }
+section#user_dashboard_content_caseinfo video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  filter: brightness(0.6);
+}
 
 div.caseInfo_table {
   overflow-y: scroll;
@@ -633,8 +641,7 @@ div.caseInfo_table {
   font-size: 24px;
   filter: brightness(0.8);
   animation-name: caseinfo_table_fading;
-  animation-duration: 1s;
-  animation-delay: 0.7s;
+  animation-duration: 2s;
 }
 div.caseInfo_table div.caseInfo_sectionBox {
   margin-left: auto;
@@ -712,6 +719,12 @@ div.caseInfo_table div.caseInfo_btn_box button :active {
 }
 @keyframes caseinfo_table_fading {
   0% {
+    transform: translateY(-800px);
+    background-color: #ffffff;
+    opacity: 0;
+    filter: brightness(0.8);
+  }
+  50% {
     transform: translateY(-800px);
     background-color: #ffffff;
     opacity: 0.1;
