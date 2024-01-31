@@ -88,7 +88,6 @@ function CaseRegister() {
     language: Yup.string().min(2).required('* Language is required.'),
     summary: Yup.string(),
     auth: Yup.boolean().required("* Guest's Authorization is required."),
-    created_at: Yup.date().required("* Created Date is required.")
   });
 
 
@@ -213,10 +212,6 @@ function ChangeInputIdentifier(event: React.ChangeEvent<HTMLInputElement>, name:
   }
   else if (name === 'guest') {
     setFieldValue('guest', event.target.value);
-    dispatch(updateGuest(event.target.value));
-  }
-  else if (name === "created_at") {
-    setFieldValue('created_at', new Date().toDateString());
     dispatch(updateGuest(event.target.value));
   }
 }
