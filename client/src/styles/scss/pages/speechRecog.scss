@@ -1,0 +1,156 @@
+@use '../elements/colors.scss' as colors;
+@use '../elements/fonts.scss' as fonts;
+
+
+section#user_dashboard_content_speechRecog {
+  transition: left 0.7s ease-in-out;
+  background-color: colors.$grey_000;
+
+  div#speechRecog_infoBox {
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 12px;
+  }
+
+  div#speechRecog_body {
+    height: calc(100vh - 64px);
+  }
+} 
+
+div#speechRecog_infoBox {
+  div#speechRecog_infoBox_left, div#speechRecog_infoBox_right {
+    display: flex;
+    align-items: center;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      padding: 1px;
+      text-decoration: none;
+    }
+ 
+    p {
+      margin-left: 12px;
+      font-size: fonts.$para_size_600;
+    }
+  }
+}
+
+div#speechRecog_chatBoard {
+  display: flex;
+  overflow: auto;
+  height: calc(100vh - 64px - 64px);
+  flex-direction: column;
+  padding: 18px;
+
+  div.speechRecog_chats_system {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    font-size: 14px; 
+    color: #999999;
+    padding: 16px 0;
+    z-index: 100;
+
+    &:before {
+      content: " ";
+      position: absolute;
+      left: 10%;
+      width: 32%;
+      height: 1px;
+      background-color: #999999;
+      z-index: 0;
+    }
+    &:after {
+      content: " ";
+      position: absolute;
+      right: 10%;
+      width: 32%;
+      height: 1px;
+      background-color: #999999;
+      z-index: 0;
+    }
+  }
+
+  div.speechRecog_chats {  
+    width: fit-content;
+    max-width: 70%;
+    margin: 4px;
+    padding: 12px;
+    font-size: 14px;
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px; 
+    border-radius: 10px;
+    &::before {
+      content:"";
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+
+    p.speechRecog_chats_nameText {
+      padding: 0 4px;
+      font-weight: bold;
+    }
+
+    p.speechRecog_chats_bodyText {
+      margin-top: 4px;
+      padding: 0 4px;
+    }
+  }
+
+  div.speechRecog_chats_guests {
+    background: #eeeeee;
+  }
+
+  div.speechRecog_chats_host {
+    float: right;
+    background: lightblue;
+  }
+}
+
+
+
+div#speechRecog_controlPanel {
+  display: flex;
+  justify-content: center;
+  height: 64px;
+
+  button {
+    width: 60px;
+    height: 64px;
+    margin: 0 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.7s ease-in-out;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      &:hover {
+        fill: colors.$grey_300;
+      }
+    }
+  }
+}
+
+
+// C. RESPONSIVE DESIGN
+
+@media screen and (max-width: 768px) {
+  div#speechRecog_controlPanel {  
+    button {
+      margin: 0;
+      width: 60px;
+      transition: all 0.7s ease-in-out;
+    }
+  }
+}

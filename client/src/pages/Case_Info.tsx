@@ -13,7 +13,7 @@ import bg_video from '/videos/caseinfo_bg_main.mp4';
 
 export default function User() {
   return (
-    <main id="user_dashboard_caseInfo" className="user_dashboard_frame">
+    <main className="user_dashboard_frame">
       <UserSidebar />
       {/* B. DashBoard */}
       <section id="user_dashboard_content_caseinfo" className="user_dashboard_contents">
@@ -68,6 +68,7 @@ function CaseRegister() {
   const caseInfoInitialValues = {
     id: interview._id,
     time: interview.time,
+    title: interview.title,
     venue: interview.venue,
     host: interview.host,
     guest: interview._guest,

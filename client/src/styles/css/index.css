@@ -737,6 +737,135 @@ div.caseInfo_table div.caseInfo_btn_box button :active {
     filter: brightness(0.8);
   }
 }
+section#user_dashboard_content_speechRecog {
+  transition: left 0.7s ease-in-out;
+  background-color: #ffffff;
+}
+section#user_dashboard_content_speechRecog div#speechRecog_infoBox {
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 12px;
+}
+section#user_dashboard_content_speechRecog div#speechRecog_body {
+  height: calc(100vh - 64px);
+}
+
+div#speechRecog_infoBox div#speechRecog_infoBox_left, div#speechRecog_infoBox div#speechRecog_infoBox_right {
+  display: flex;
+  align-items: center;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left a, div#speechRecog_infoBox div#speechRecog_infoBox_right a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  padding: 1px;
+  text-decoration: none;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left p, div#speechRecog_infoBox div#speechRecog_infoBox_right p {
+  margin-left: 12px;
+  font-size: 22px;
+}
+
+div#speechRecog_chatBoard {
+  display: flex;
+  overflow: auto;
+  height: calc(100vh - 64px - 64px);
+  flex-direction: column;
+  padding: 18px;
+}
+div#speechRecog_chatBoard div.speechRecog_chats_system {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #999999;
+  padding: 16px 0;
+  z-index: 100;
+}
+div#speechRecog_chatBoard div.speechRecog_chats_system:before {
+  content: " ";
+  position: absolute;
+  left: 10%;
+  width: 32%;
+  height: 1px;
+  background-color: #999999;
+  z-index: 0;
+}
+div#speechRecog_chatBoard div.speechRecog_chats_system:after {
+  content: " ";
+  position: absolute;
+  right: 10%;
+  width: 32%;
+  height: 1px;
+  background-color: #999999;
+  z-index: 0;
+}
+div#speechRecog_chatBoard div.speechRecog_chats {
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 70%;
+  margin: 4px;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+div#speechRecog_chatBoard div.speechRecog_chats::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+div#speechRecog_chatBoard div.speechRecog_chats p.speechRecog_chats_nameText {
+  padding: 0 4px;
+  font-weight: bold;
+}
+div#speechRecog_chatBoard div.speechRecog_chats p.speechRecog_chats_bodyText {
+  margin-top: 4px;
+  padding: 0 4px;
+}
+div#speechRecog_chatBoard div.speechRecog_chats_guests {
+  background: #eeeeee;
+}
+div#speechRecog_chatBoard div.speechRecog_chats_host {
+  float: right;
+  background: lightblue;
+}
+
+div#speechRecog_controlPanel {
+  display: flex;
+  justify-content: center;
+  height: 64px;
+}
+div#speechRecog_controlPanel button {
+  width: 60px;
+  height: 64px;
+  margin: 0 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.7s ease-in-out;
+}
+div#speechRecog_controlPanel button svg {
+  width: 24px;
+  height: 24px;
+}
+div#speechRecog_controlPanel button svg:hover {
+  fill: #999999;
+}
+
+@media screen and (max-width: 768px) {
+  div#speechRecog_controlPanel button {
+    margin: 0;
+    width: 60px;
+    transition: all 0.7s ease-in-out;
+  }
+}
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -753,7 +882,7 @@ main.user_dashboard_frame section.user_dashboard_contents {
   left: 240px;
   width: calc(100vw - 240px);
   height: 100vh;
-  padding: 36px 10%;
+  max-height: -webkit-fill-available;
   background-color: #eeeeee;
   transition: left 0.7s ease-in-out;
 }
