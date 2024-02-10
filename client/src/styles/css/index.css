@@ -83,6 +83,11 @@ main#home_page #home_section_hero::after {
   cursor: pointer;
 }
 
+@media screen and (max-width: 768px) {
+  #home_hero_textbox {
+    right: 0;
+  }
+}
 @keyframes home_hero_h1_fading {
   0% {
     transform: translateY(-20px);
@@ -142,13 +147,14 @@ div.login_page_forms, div.reg_page_forms {
   position: absolute;
   top: 0;
   right: 0;
-  width: 50%;
-  min-width: 480px;
+  width: 600px;
   height: 100vh;
   background-color: #eeeeee;
+  transition: all 1s ease-in-out;
 }
 div.login_page_forms#login_form_container, div.login_page_forms#reg_form_container, div.reg_page_forms#login_form_container, div.reg_page_forms#reg_form_container {
   overflow: scroll;
+  height: 100vh;
   padding-bottom: 60px;
   transform: translateX(0);
   animation-name: login_login_form_fading;
@@ -163,6 +169,7 @@ div.login_page_forms#login_form_container div#login_network_row h2, div.login_pa
   font-size: 36px;
   line-height: 48px;
   color: #111111;
+  transition: all 1s ease-in-out;
 }
 div.login_page_forms#login_form_container div#login_network_row p, div.login_page_forms#login_form_container div#reg_network_row p, div.login_page_forms#reg_form_container div#login_network_row p, div.login_page_forms#reg_form_container div#reg_network_row p, div.reg_page_forms#login_form_container div#login_network_row p, div.reg_page_forms#login_form_container div#reg_network_row p, div.reg_page_forms#reg_form_container div#login_network_row p, div.reg_page_forms#reg_form_container div#reg_network_row p {
   color: #666666;
@@ -199,16 +206,18 @@ div.login_page_forms#login_form_container div#login_formik_row::before, div.logi
 }
 div.login_page_forms#login_form_container div#login_btn_box, div.login_page_forms#login_form_container div#reg_btn_box, div.login_page_forms#reg_form_container div#login_btn_box, div.login_page_forms#reg_form_container div#reg_btn_box, div.reg_page_forms#login_form_container div#login_btn_box, div.reg_page_forms#login_form_container div#reg_btn_box, div.reg_page_forms#reg_form_container div#login_btn_box, div.reg_page_forms#reg_form_container div#reg_btn_box {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  width: 100%;
   align-items: center;
   padding: 16px 0;
 }
 div.login_page_forms#login_form_container div#login_btn_box button, div.login_page_forms#login_form_container div#reg_btn_box button, div.login_page_forms#reg_form_container div#login_btn_box button, div.login_page_forms#reg_form_container div#reg_btn_box button, div.reg_page_forms#login_form_container div#login_btn_box button, div.reg_page_forms#login_form_container div#reg_btn_box button, div.reg_page_forms#reg_form_container div#login_btn_box button, div.reg_page_forms#reg_form_container div#reg_btn_box button {
-  width: 48%;
-  height: 40px;
+  margin-left: 8px;
+  padding: 12px 36px;
   font-size: 16px;
   border: none;
   border-radius: 25px;
+  transition: all 1s ease-in-out;
   cursor: pointer;
 }
 div.login_page_forms#login_form_container div#login_btn_box button:first-child, div.login_page_forms#login_form_container div#reg_btn_box button:first-child, div.login_page_forms#reg_form_container div#login_btn_box button:first-child, div.login_page_forms#reg_form_container div#reg_btn_box button:first-child, div.reg_page_forms#login_form_container div#login_btn_box button:first-child, div.reg_page_forms#login_form_container div#reg_btn_box button:first-child, div.reg_page_forms#reg_form_container div#login_btn_box button:first-child, div.reg_page_forms#reg_form_container div#reg_btn_box button:first-child {
@@ -259,6 +268,30 @@ div.login_page_forms#login_form_container div#login_switcher_trigger p span:hove
   text-underline-offset: 4px;
 }
 
+@media screen and (max-width: 768px) {
+  div.login_page_forms, div.reg_page_forms {
+    width: 100vw;
+    transition: all 1s ease-in-out;
+  }
+  div.login_page_forms#login_form_container div#login_network_row h2, div.login_page_forms#login_form_container div#reg_network_row h2, div.login_page_forms#reg_form_container div#login_network_row h2, div.login_page_forms#reg_form_container div#reg_network_row h2, div.reg_page_forms#login_form_container div#login_network_row h2, div.reg_page_forms#login_form_container div#reg_network_row h2, div.reg_page_forms#reg_form_container div#login_network_row h2, div.reg_page_forms#reg_form_container div#reg_network_row h2 {
+    font-size: 28px;
+    transition: all 1s ease-in-out;
+  }
+  div.login_page_forms#login_form_container div#login_btn_box, div.login_page_forms#login_form_container div#reg_btn_box, div.login_page_forms#reg_form_container div#login_btn_box, div.login_page_forms#reg_form_container div#reg_btn_box, div.reg_page_forms#login_form_container div#login_btn_box, div.reg_page_forms#login_form_container div#reg_btn_box, div.reg_page_forms#reg_form_container div#login_btn_box, div.reg_page_forms#reg_form_container div#reg_btn_box {
+    width: 100%;
+  }
+  div.login_page_forms#login_form_container div#login_btn_box button, div.login_page_forms#login_form_container div#reg_btn_box button, div.login_page_forms#reg_form_container div#login_btn_box button, div.login_page_forms#reg_form_container div#reg_btn_box button, div.reg_page_forms#login_form_container div#login_btn_box button, div.reg_page_forms#login_form_container div#reg_btn_box button, div.reg_page_forms#reg_form_container div#login_btn_box button, div.reg_page_forms#reg_form_container div#reg_btn_box button {
+    padding: 12px 24px;
+    font-size: 14px;
+    transition: all 1s ease-in-out;
+  }
+  div.login_page_forms#login_form_container div#login_forget_password, div.login_page_forms#login_form_container div#reg_forget_password, div.login_page_forms#reg_form_container div#login_forget_password, div.login_page_forms#reg_form_container div#reg_forget_password, div.reg_page_forms#login_form_container div#login_forget_password, div.reg_page_forms#login_form_container div#reg_forget_password, div.reg_page_forms#reg_form_container div#login_forget_password, div.reg_page_forms#reg_form_container div#reg_forget_password {
+    justify-content: center;
+  }
+  div.login_page_forms#login_form_container div#login_switcher_trigger, div.login_page_forms#login_form_container div#reg_switcher_trigger, div.login_page_forms#reg_form_container div#login_switcher_trigger, div.login_page_forms#reg_form_container div#reg_switcher_trigger, div.reg_page_forms#login_form_container div#login_switcher_trigger, div.reg_page_forms#login_form_container div#reg_switcher_trigger, div.reg_page_forms#reg_form_container div#login_switcher_trigger, div.reg_page_forms#reg_form_container div#reg_switcher_trigger {
+    font-size: 14px;
+  }
+}
 @keyframes login_login_form_fading {
   0% {
     transform: translateX(50vw);
@@ -358,12 +391,12 @@ aside.user_dashboard_sidebar div.div_for_scrolling div#sidebar_section_projectPa
     transition: transform 0.7s ease-in-out;
   }
 }
+main#user_dashboard_main_frame section {
+  padding: 48px;
+}
 main#user_dashboard_main_frame p {
   font-size: 28px;
   font-weight: bold;
-}
-main#user_dashboard_main_frame div.user_dashboard_fields {
-  margin-top: 24px;
 }
 main#user_dashboard_main_frame div.user_dashboard_fields div.dashboard_field_titles {
   display: flex;
@@ -501,6 +534,9 @@ div.dashboard_field_bodysRows div.pending_folder_list div img {
 }
 
 @media screen and (max-width: 1024px) {
+  main#user_dashboard_main_frame section {
+    padding: 48px 24px;
+  }
   main#user_dashboard_main_frame div.user_dashboard_fields div.dashboard_field_contentBox {
     display: block;
   }

@@ -103,8 +103,12 @@ main#home_page {
 
 // (B) RESPONSIVE DESIGNS
 
-// @media screen and (max-width: 768px) {
-// }
+@media screen and (max-width: 768px) {
+
+  #home_hero_textbox {
+    right: 0;
+  }
+}
 
 // @media screen and (max-width: 1024px) {
 // }

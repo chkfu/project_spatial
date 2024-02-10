@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import UserSidebar from "../components/UserSidebar";
 
 
@@ -107,7 +106,7 @@ function Dashboard_SectTitle(props: { name: string; }): React.ReactNode {
 function Dashboard_SingleIcon(props: { type: string; }) {
   return (
     <div data-folderName={`${props.type} name`}>
-      <img src={`../../public/icons/${props.type}.svg`} alt={`${props.type}`} />
+      <img src={`/icons/${props.type}.svg`} alt={`${props.type}`} />
     </div>
   );
 }

@@ -9,8 +9,10 @@
 
 main#user_dashboard_main_frame {
 
+  section {
+    padding: 48px;
+  }
   // (1a) welcome message
-
   p {
     font-size: fonts.$para_size_800;
     font-weight: bold;
@@ -19,7 +21,6 @@ main#user_dashboard_main_frame {
   // (1b) panel region
 
   div.user_dashboard_fields {
-    margin-top: 24px;
 
     div.dashboard_field_titles {
       display: flex;
@@ -195,6 +196,11 @@ div.dashboard_field_bodysRows {
 @media screen and (max-width: 1024px) { 
 
   main#user_dashboard_main_frame {
+
+    section {
+      padding: 48px 24px;
+    }
+
     div.user_dashboard_fields {
       div.dashboard_field_contentBox {
         display: block;

@@ -31,13 +31,14 @@ div.login_page_forms, div.reg_page_forms {
   position: absolute;
   top: 0;
   right: 0;
-  width: 50%;
-  min-width: 480px;
+  width: 600px;
   height: 100vh;
   background-color: colors.$grey_100;
+  transition: all 1s ease-in-out;
 
   &#login_form_container, &#reg_form_container{
     overflow: scroll;
+    height: 100vh;
     padding-bottom: 60px;
     transform: translateX(0);
     animation-name: login_login_form_fading;
@@ -52,6 +53,7 @@ div.login_page_forms, div.reg_page_forms {
         font-size: fonts.$head_size_200;
         line-height: 48px;
         color: colors.$grey_800;
+        transition: all 1s ease-in-out;
       }
 
       p {
@@ -101,16 +103,18 @@ div.login_page_forms, div.reg_page_forms {
 
     div#login_btn_box, div#reg_btn_box {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: flex-end;
+      width: 100%;
       align-items: center;
       padding: 16px 0;
 
       button {
-        width: 48%;
-        height: 40px;
+        margin-left: 8px;
+        padding: 12px 36px;
         font-size: fonts.$para_size_300;
         border: none;
         border-radius: 25px;
+        transition: all 1s ease-in-out;
       
         cursor: pointer;
 
@@ -181,8 +185,43 @@ div.login_page_forms, div.reg_page_forms {
 
 // (B) RESPONSIVE DESIGNS
 
-// @media screen and (max-width: 768px) {
-// }
+@media screen and (max-width: 768px) {
+  div.login_page_forms, div.reg_page_forms {
+    width: 100vw;
+    transition: all 1s ease-in-out;
+
+    &#login_form_container, &#reg_form_container{
+      div#login_network_row, div#reg_network_row  {
+        h2 {
+          font-size: fonts.$para_size_800;
+          transition: all 1s ease-in-out;
+        }
+      }
+
+      // (1b) button box
+  
+      div#login_btn_box, div#reg_btn_box {
+        width: 100%;
+  
+        button {
+          padding: 12px 24px;
+          font-size: fonts.$para_size_200;
+          transition: all 1s ease-in-out;
+        }
+      }
+  
+      // (1c) redirect links
+      
+      div#login_forget_password, div#reg_forget_password {
+        justify-content: center;
+      }
+  
+      div#login_switcher_trigger, div#reg_switcher_trigger {
+        font-size: fonts.$para_size_200;
+      }
+    }
+  }
+}
 
 // @media screen and (max-width: 1024px) {
 // }
