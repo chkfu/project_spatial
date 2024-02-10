@@ -3,10 +3,10 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum } from '../redux/slices/recognizerSlice';
+import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo } from '../redux/slices/recognizerSlice';
 import UserSidebar from "../components/UserSidebar";
-import { SRecogStarter, SRecogTerminator } from "../components/SRecogFunction";
-import { Span } from "next/dist/trace";
+import { SRecogStarter, SRecogTerminator } from "../components/SpeechRecongnition";
+import { DateInterpreter, TimeInterpreter } from "../util/DateInterpreter";
 
 
 
@@ -15,12 +15,14 @@ import { Span } from "next/dist/trace";
 export default function SpeechRecog() {
   return (
     <main id="user_dashboard_speechRecog" className="user_dashboard_frame">
+      {/* 1. Main Elements */}
       <UserSidebar />
-
       <section id="user_dashboard_content_speechRecog" className="user_dashboard_contents">
         <SRecogInfoBox />
         <SRecogBody />
       </section>
+      {/* 2. Hidden Elements */}
+      <SRecog_ExtendList />
     </main >
   );
 }
@@ -34,17 +36,44 @@ function SRecogInfoBox() {
   // Return
   return (
     <div id="speechRecog_infoBox">
+      {/* 1. informaiton box left */}
       <div id="speechRecog_infoBox_left">
-        <a href="">
+        <button type="button">
           <img className="speechRecog_infoBox_icons" src="/icons/chevron-left.svg" alt="left icon" />
-        </a>
-        <p>{redux_recog.currentSpeaker}</p>
+        </button>
+        <h4>{redux_recog.currentSpeaker}</h4>
       </div>
+      {/* 2. informaiton box right */}
       <div id="speechRecog_infoBox_right">
-        <a href="">
-          <img className="speechRecog_infoBox_icons" src="/icons/info-circle.svg" alt="info icon" />
-        </a>
+        <SVG_Btn_Detector type="Info" />
       </div>
+    </div>
+  );
+}
+
+function SRecog_ExtendList() {
+  // Redux
+  const redux_recog = useAppSelector(state => state.recognizer);
+  const redux_case = useAppSelector(state => state.interview);
+  return (
+    <div className={`speechRecog_hidden_infoList ${redux_recog.CaseInfoStatus ? "speechRecog_hidden_infoList_active" : ""}`}>
+      <div className="speechRecog_hidden_tableLeft speechRecog_hidden_tableCol">
+        <SRecog_InfoList_Rows heading="identifier" content={redux_case._id} />
+        <SRecog_InfoList_Rows heading="Title" content={redux_case.title} />
+        <SRecog_InfoList_Rows heading="Interviewer" content={redux_case.host} />
+        <SRecog_InfoList_Rows heading="Attendee" content={redux_case._guest} />
+        <SRecog_InfoList_Rows heading="Date" content={DateInterpreter(redux_case.time, 'long')} />
+        <SRecog_InfoList_Rows heading="Time" content={TimeInterpreter(redux_case.time, '12')} />
+        <SRecog_InfoList_Rows heading="Venue" content={redux_case.venue} />
+        <SRecog_InfoList_Rows heading="Language" content={redux_case.language} />
+      </div>
+
+      <div className="speechRecog_hidden_infoList_btnBox">
+        <Link to='/'>
+          <button className={`infoList_btnEdit ${redux_recog.CaseInfoStatus && "infoList_btnEdit_active"}`} type="button">Edit</button>
+        </Link>
+      </div>
+
     </div>
   );
 }
@@ -64,7 +93,7 @@ function SRecogBody() {
   return (
     <div id="speechRecog_body">
       <SRecog_ChatBoard containerRef={containerRef} />
-      < SRecogControl />
+      <SRecogControl />
     </div>
   );
 }
@@ -72,10 +101,18 @@ function SRecogBody() {
 
 // ADDITIONAL COMPONENTS
 
+function SRecog_InfoList_Rows(props: { heading: string, content: string; }) {
+  return (
+    <div>
+      <p className="infotable_left">{props.heading}</p>
+      <p className="infotable_right">{props.content}</p>
+    </div>
+  );
+}
+
 function SRecog_ChatBoard(props: { containerRef: React.RefObject<HTMLDivElement>; }) {
   // Redux
   const redux_recog = useAppSelector(state => state.recognizer);
-
   // Return
   return (
     <div id="speechRecog_chatBoard" ref={props.containerRef}>
@@ -97,23 +134,34 @@ function SRecogControl() {
   return (
     <div id="speechRecog_controlPanel">
       <div id="controlPanel_msgController">
-        <Control_Option_Detector type="Host" />
-        <Control_Option_Detector type="Section Break" />
-        <Control_Option_Detector type="Recording" />
-        <Control_Option_Detector type="Recognizer" />
-        <Control_Option_Detector type="Erase Messages" />
-        <Control_Option_Detector type="Redirect" />
+        <SVG_Btn_Detector type="Host" />
+        <SVG_Btn_Detector type="Section Break" />
+        <SVG_Btn_Detector type="Recording" />
+        <SVG_Btn_Detector type="Recognizer" />
+        <SVG_Btn_Detector type="Erase Messages" />
+        <SVG_Btn_Detector type="Redirect" />
       </div>
     </div>
   );
 }
 
-function Control_Option_Detector(props: { type: string; }) {
+function SVG_Btn_Detector(props: { type: string; }) {
 
   // Redux 
   const redux_recog = useAppSelector(state => state.recognizer);
   const dispatch = useAppDispatch();
-
+  // Info
+  if (props.type === "Info") {
+    return (
+      <button type="button" onClick={() => dispatch(showCaseInfo())}>
+        <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.CaseInfoStatus && "recog_icon_active"}`} viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+          <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+        </svg>
+        <p className={`${redux_recog.CaseInfoStatus && "recog_icon_active"}`}>Info</p>
+      </button>
+    );
+  }
   // Section Break
   if (props.type === "Section Break") {
     let temp: any[] = [];

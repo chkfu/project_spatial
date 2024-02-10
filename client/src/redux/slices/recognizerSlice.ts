@@ -9,18 +9,26 @@ interface RecognizerState {
   currentSection: number;
   newMsg: string[][];
   // 2. additional status - buttons
+  infoStatus: boolean;
   recordingStatus: boolean;
   recognizerStatus: string;
+  // 3. display - hidden information
+  CaseInfoStatus: boolean;
 }
 
 // Define the initial state using that type
 const initialState: RecognizerState = {
+  // 1. main states - passive
   currentCaseId: "default",
   currentSpeaker: "host",
   currentSection: 1,
   newMsg: [["system", "#### Section 1 ####"]],
+  // 2. additional status - buttons
+  infoStatus: false,
   recordingStatus: false,
   recognizerStatus: "inactive",
+  // 3. display - hidden information
+  CaseInfoStatus: false
 };
 
 export const recognizerSlice = createSlice({
@@ -70,10 +78,26 @@ export const recognizerSlice = createSlice({
       state.recordingStatus = false;
       state.currentSection = 1;
     },
+    // 3. display - hidden information
+    showCaseInfo: (state) => {
+      if (!state.CaseInfoStatus)
+        state.CaseInfoStatus = true;
+      else
+        state.CaseInfoStatus = false;
+    }
   },
 });
 
-export const { switchSpeaker, updateMsgs, resetRecog, setRecognizer, setRecording, breakSection, updateSectNum } = recognizerSlice.actions;
+export const {
+  switchSpeaker,
+  updateMsgs,
+  resetRecog,
+  setRecognizer,
+  setRecording,
+  breakSection,
+  updateSectNum,
+  showCaseInfo
+} = recognizerSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export default recognizerSlice.reducer;

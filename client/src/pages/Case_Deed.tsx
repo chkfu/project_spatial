@@ -1,7 +1,9 @@
-export default function CaseAgreement() {
+import React from 'react';
+
+export default function Case_Deed() {
   return (
     <div>
-      Agreement
+
     </div>
   );
 }

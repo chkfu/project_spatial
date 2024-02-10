@@ -2,12 +2,15 @@
 @use '../elements/fonts.scss' as fonts;
 
 
+
+// A. MAIN
+
 section#user_dashboard_content_speechRecog {
   transition: left 0.7s ease-in-out;
   background-color: colors.$grey_000;
 
   div#speechRecog_infoBox {
-    height: 64px;
+    height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,48 +18,88 @@ section#user_dashboard_content_speechRecog {
   }
 
   div#speechRecog_body {
-    height: calc(100vh - 64px);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height: calc(100vh - 80px);
   }
 } 
 
+
+// Information Bar
+
 div#speechRecog_infoBox {
+
   div#speechRecog_infoBox_left, div#speechRecog_infoBox_right {
     display: flex;
     align-items: center;
 
-    a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    button {
       position: relative;
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      padding: 1px;
+      border: none;
+      background-color: transparent;
       text-decoration: none;
+      cursor: pointer;
+      
+      &:hover {
+        svg {
+          fill: #fd7e14;
+        }
+        p {
+          color: #fd7e14;
+        }
+      }
+
+      svg {
+        width: 28px;
+        height: 28px;
+        margin-left: auto;
+        margin-right: auto;
+        fill: colors.$grey_800;
+        &.recog_icon_active {
+          fill: #d9480f;
+        }
+        &.recog_icon_active {
+          fill: #d9480f;
+        }
+      }
+
+      p {
+        font-size: fonts.$para_size_100;
+        text-decoration: none;  
+        text-align: center;
+        line-height: 8px;
+        color: colors.$grey_800;
+        &.recog_icon_active {
+          color: #d9480f;
+        }
+      }
     }
  
-    p {
+    h4 {
       margin-left: 12px;
       font-size: fonts.$para_size_600;
     }
   }
 }
 
+
+// Chat Board
+
 div#speechRecog_chatBoard {
   display: flex;
   overflow: auto;
-  height: calc(100vh - 64px - 64px);
+  height: calc(100vh - 80px - 80px);
   flex-direction: column;
-  padding: 0px 18px 64px 18px;
+  padding: 20px 80px 20px 18px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   div.speechRecog_chats_system {
     display: flex; 
+    position: relative;
     justify-content: center;
     align-items: center; 
     font-size: 14px; 
     color: #999999;
-    padding: 16px 0;
+    padding: 8px 0;
     z-index: 100;
 
     &:before {
@@ -76,16 +119,13 @@ div#speechRecog_chatBoard {
       height: 100%;
       background-color: white;
       z-index: 200;
-      p {
-  
-      }   
     }
   }
 
   div.speechRecog_chats {  
     width: fit-content;
     max-width: 70%;
-    margin: 4px;
+    margin: 2px;
     padding: 12px;
     font-size: 14px;
     -moz-border-radius: 10px; 
@@ -99,13 +139,11 @@ div#speechRecog_chatBoard {
     }
 
     p.speechRecog_chats_nameText {
-      padding: 0 4px;
       font-weight: bold;
     }
 
     p.speechRecog_chats_bodyText {
       margin-top: 4px;
-      padding: 0 4px;
     }
   }
 
@@ -120,15 +158,18 @@ div#speechRecog_chatBoard {
 }
 
 
+// CONTROL PANEL 
 
 div#speechRecog_controlPanel {
   display: flex;
   justify-content: center;
-  height: 64px;
+  align-items: center;
+  height: 80px;
+  z-index: 1000;
 
   button {
     width: 80px;
-    height: 64px;
+    height: 80px;
     margin: 0 16px;
     background-color: transparent;
     border: none;
@@ -136,7 +177,6 @@ div#speechRecog_controlPanel {
     transition: all 0.7s ease-in-out;
     &:hover {
       filter: brightness(1.2);
-      color: red;
     }
 
     &:hover {
@@ -148,10 +188,10 @@ div#speechRecog_controlPanel {
           color: #fd7e14;
         }
       }
-
     }
 
     svg {
+      margin-top: 12px;
       width: 28px;
       height: 28px;
       &.recog_icon_active {
@@ -187,7 +227,76 @@ div#speechRecog_controlPanel {
   }
 }
 
-// C. RESPONSIVE DESIGN
+// Hidden - Info List
+div.speechRecog_hidden_infoList {
+  position: absolute;
+  width: 320px;
+  max-height: 0;
+  top: 80px;
+  right: 28px;
+  padding: 0 24px;
+  color: transparent;
+  background-color: colors.$grey_700;
+  font-size: fonts.$para_size_200;
+  opacity: 0.8;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transition: all 0.5s ease-in-out;
+  z-index: 100;
+
+  &.speechRecog_hidden_infoList_active {
+    max-height: 100vh;
+    height: auto;
+    padding: 24px;
+    color: colors.$grey_200;
+    opacity: 1;
+    }
+    
+    div.speechRecog_hidden_infoList_btnBox {
+      display: flex;
+      justify-content: center;
+  
+      button.infoList_btnEdit {
+        margin-top: 12px;
+        border: none;
+        padding: 8px 56px;
+        border-radius: 20px;
+        font-weight: 800;
+        color: colors.$grey_900;
+        background-color: colors.$yellow_400;
+        opacity: 0;
+        cursor: pointer;
+        transition: opacity 0.5s;
+        &:hover {
+          filter: brightness(1.2);
+        }
+
+        &.infoList_btnEdit_active {
+          opacity: 1;
+          transition: opacity 0.8s 0.3s;
+        }
+      }
+    }
+
+  div.speechRecog_hidden_tableCol {
+    div {
+      margin: 16px 0;
+      display: flex;
+
+      p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        &.infotable_left {
+          width: 100px;
+        }
+      }
+    }
+  }
+
+}
+
+
+// B. RESPONSIVE DESIGN
 
 @media screen and (max-width: 768px) {
   div#speechRecog_controlPanel {  

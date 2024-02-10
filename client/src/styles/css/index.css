@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Forum&family=Mitr:wght@200;300;400;500;600;700&family=Sarala:wght@400;700&display=swap");
 main#home_page #home_section_hero {
   overflow: hidden;
   width: 100vw;
@@ -742,32 +743,58 @@ section#user_dashboard_content_speechRecog {
   background-color: #ffffff;
 }
 section#user_dashboard_content_speechRecog div#speechRecog_infoBox {
-  height: 64px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 7%;
 }
 section#user_dashboard_content_speechRecog div#speechRecog_body {
-  height: calc(100vh - 64px);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: calc(100vh - 80px);
 }
 
 div#speechRecog_infoBox div#speechRecog_infoBox_left, div#speechRecog_infoBox div#speechRecog_infoBox_right {
   display: flex;
   align-items: center;
 }
-div#speechRecog_infoBox div#speechRecog_infoBox_left a, div#speechRecog_infoBox div#speechRecog_infoBox_right a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+div#speechRecog_infoBox div#speechRecog_infoBox_left button, div#speechRecog_infoBox div#speechRecog_infoBox_right button {
   position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  padding: 1px;
+  border: none;
+  background-color: transparent;
   text-decoration: none;
+  cursor: pointer;
 }
-div#speechRecog_infoBox div#speechRecog_infoBox_left p, div#speechRecog_infoBox div#speechRecog_infoBox_right p {
+div#speechRecog_infoBox div#speechRecog_infoBox_left button:hover svg, div#speechRecog_infoBox div#speechRecog_infoBox_right button:hover svg {
+  fill: #fd7e14;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left button:hover p, div#speechRecog_infoBox div#speechRecog_infoBox_right button:hover p {
+  color: #fd7e14;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left button svg, div#speechRecog_infoBox div#speechRecog_infoBox_right button svg {
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  margin-right: auto;
+  fill: #111111;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left button svg.recog_icon_active, div#speechRecog_infoBox div#speechRecog_infoBox_right button svg.recog_icon_active {
+  fill: #d9480f;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left button svg.recog_icon_active, div#speechRecog_infoBox div#speechRecog_infoBox_right button svg.recog_icon_active {
+  fill: #d9480f;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left button p, div#speechRecog_infoBox div#speechRecog_infoBox_right button p {
+  font-size: 12px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 8px;
+  color: #111111;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left button p.recog_icon_active, div#speechRecog_infoBox div#speechRecog_infoBox_right button p.recog_icon_active {
+  color: #d9480f;
+}
+div#speechRecog_infoBox div#speechRecog_infoBox_left h4, div#speechRecog_infoBox div#speechRecog_infoBox_right h4 {
   margin-left: 12px;
   font-size: 22px;
 }
@@ -775,17 +802,19 @@ div#speechRecog_infoBox div#speechRecog_infoBox_left p, div#speechRecog_infoBox 
 div#speechRecog_chatBoard {
   display: flex;
   overflow: auto;
-  height: calc(100vh - 64px - 64px);
+  height: calc(100vh - 80px - 80px);
   flex-direction: column;
-  padding: 0px 18px 64px 18px;
+  padding: 20px 80px 20px 18px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 div#speechRecog_chatBoard div.speechRecog_chats_system {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   font-size: 14px;
   color: #999999;
-  padding: 16px 0;
+  padding: 8px 0;
   z-index: 100;
 }
 div#speechRecog_chatBoard div.speechRecog_chats_system:before {
@@ -809,7 +838,7 @@ div#speechRecog_chatBoard div.speechRecog_chats {
   width: -moz-fit-content;
   width: fit-content;
   max-width: 70%;
-  margin: 4px;
+  margin: 2px;
   padding: 12px;
   font-size: 14px;
   border-radius: 10px;
@@ -821,12 +850,10 @@ div#speechRecog_chatBoard div.speechRecog_chats::before {
   height: 0;
 }
 div#speechRecog_chatBoard div.speechRecog_chats p.speechRecog_chats_nameText {
-  padding: 0 4px;
   font-weight: bold;
 }
 div#speechRecog_chatBoard div.speechRecog_chats p.speechRecog_chats_bodyText {
   margin-top: 4px;
-  padding: 0 4px;
 }
 div#speechRecog_chatBoard div.speechRecog_chats_guests {
   background: #eeeeee;
@@ -839,11 +866,13 @@ div#speechRecog_chatBoard div.speechRecog_chats_host {
 div#speechRecog_controlPanel {
   display: flex;
   justify-content: center;
-  height: 64px;
+  align-items: center;
+  height: 80px;
+  z-index: 1000;
 }
 div#speechRecog_controlPanel button {
   width: 80px;
-  height: 64px;
+  height: 80px;
   margin: 0 16px;
   background-color: transparent;
   border: none;
@@ -852,7 +881,6 @@ div#speechRecog_controlPanel button {
 }
 div#speechRecog_controlPanel button:hover {
   filter: brightness(1.2);
-  color: red;
 }
 div#speechRecog_controlPanel button:hover div svg.recog_icon_inactive, div#speechRecog_controlPanel button:hover div svg.recog_icon_active {
   fill: #fd7e14;
@@ -861,6 +889,7 @@ div#speechRecog_controlPanel button:hover div p.recog_icon_inactive, div#speechR
   color: #fd7e14;
 }
 div#speechRecog_controlPanel button svg {
+  margin-top: 12px;
   width: 28px;
   height: 28px;
 }
@@ -892,6 +921,64 @@ div#speechRecog_controlPanel button p.recog_icon_disabled {
   color: #999999;
 }
 
+div.speechRecog_hidden_infoList {
+  position: absolute;
+  width: 320px;
+  max-height: 0;
+  top: 80px;
+  right: 28px;
+  padding: 0 24px;
+  color: transparent;
+  background-color: #333333;
+  font-size: 14px;
+  opacity: 0.8;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transition: all 0.5s ease-in-out;
+  z-index: 100;
+}
+div.speechRecog_hidden_infoList.speechRecog_hidden_infoList_active {
+  max-height: 100vh;
+  height: auto;
+  padding: 24px;
+  color: #cccccc;
+  opacity: 1;
+}
+div.speechRecog_hidden_infoList div.speechRecog_hidden_infoList_btnBox {
+  display: flex;
+  justify-content: center;
+}
+div.speechRecog_hidden_infoList div.speechRecog_hidden_infoList_btnBox button.infoList_btnEdit {
+  margin-top: 12px;
+  border: none;
+  padding: 8px 56px;
+  border-radius: 20px;
+  font-weight: 800;
+  color: #000000;
+  background-color: #f7b233;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+div.speechRecog_hidden_infoList div.speechRecog_hidden_infoList_btnBox button.infoList_btnEdit:hover {
+  filter: brightness(1.2);
+}
+div.speechRecog_hidden_infoList div.speechRecog_hidden_infoList_btnBox button.infoList_btnEdit.infoList_btnEdit_active {
+  opacity: 1;
+  transition: opacity 0.8s 0.3s;
+}
+div.speechRecog_hidden_infoList div.speechRecog_hidden_tableCol div {
+  margin: 16px 0;
+  display: flex;
+}
+div.speechRecog_hidden_infoList div.speechRecog_hidden_tableCol div p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+div.speechRecog_hidden_infoList div.speechRecog_hidden_tableCol div p.infotable_left {
+  width: 100px;
+}
+
 @media screen and (max-width: 768px) {
   div#speechRecog_controlPanel button {
     margin: 0;
@@ -906,6 +993,7 @@ div#speechRecog_controlPanel button p.recog_icon_disabled {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+  font-family: "Sarala", sans-serif;
 }
 
 main.user_dashboard_frame section.user_dashboard_contents {
@@ -917,7 +1005,7 @@ main.user_dashboard_frame section.user_dashboard_contents {
   height: 100vh;
   max-height: -webkit-fill-available;
   background-color: #eeeeee;
-  transition: left 0.7s ease-in-out;
+  transition: height 0.7s ease-in-out;
 }
 
 @media screen and (max-width: 768px) {
