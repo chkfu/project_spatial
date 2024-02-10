@@ -3,10 +3,10 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo } from '../redux/slices/recognizerSlice';
+import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo } from '../../src/redux/slices/recognizerSlice';
 import UserSidebar from "../components/UserSidebar";
-import { SRecogStarter, SRecogTerminator } from "../components/SpeechRecongnition";
-import { DateInterpreter, TimeInterpreter } from "../util/DateInterpreter";
+import { SRecogStarter, SRecogTerminator } from "../../src/components/SpeechRecongnition";
+import { DateInterpreter, TimeInterpreter } from "../../src/util/DateInterpreter";
 
 
 

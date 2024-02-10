@@ -1,4 +1,4 @@
-import { updateMsgs } from "../redux/slices/recognizerSlice";
+import { updateMsgs } from "../../src/redux/slices/recognizerSlice";
 
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
