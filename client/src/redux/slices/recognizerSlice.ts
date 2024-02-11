@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import short from 'short-uuid';
+
 
 // Define a type for the slice state
 interface RecognizerState {
@@ -86,7 +86,6 @@ export const recognizerSlice = createSlice({
         state.CaseInfoStatus = true;
         state.LangListStatus = false;
       }
-
       else {
         state.CaseInfoStatus = false;
         state.LangListStatus = false;
@@ -102,6 +101,10 @@ export const recognizerSlice = createSlice({
         state.CaseInfoStatus = false;
       }
     },
+    closeLists: (state) => {
+      state.CaseInfoStatus = false;
+      state.LangListStatus = false;
+    }
   },
 });
 
@@ -114,7 +117,8 @@ export const {
   breakSection,
   updateSectNum,
   showCaseInfo,
-  showLangList
+  showLangList,
+  closeLists
 } = recognizerSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

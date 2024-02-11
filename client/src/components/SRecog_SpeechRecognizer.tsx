@@ -1,4 +1,6 @@
-import { updateMsgs } from "../../src/redux/slices/recognizerSlice";
+import { updateMsgs } from "../redux/slices/recognizerSlice";
+import { fn_recognizorInfo } from "../util/caseInformation";
+
 
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -9,7 +11,9 @@ recognition.continuous = false;
 
 
 
-export function SRecogStarter(speaker: string, dispatch: any) {
+export function SRecogStarter(dispatch: any) {
+
+  console.log(fn_recognizorInfo.curr_speaker);
   // Recognizer Initialization
   recognition.start();
   console.log('[Recognisor] Default Speech Recognisor is activated...');
@@ -18,7 +22,7 @@ export function SRecogStarter(speaker: string, dispatch: any) {
     console.log(event);
     let temp: any[] = [];
     if (event.results[0].isFinal) {
-      temp.push([speaker.toString(), event.results[0][0].transcript.toString()]);
+      temp.push([fn_recognizorInfo.curr_speaker.toString(), event.results[0][0].transcript.toString()]);
       dispatch(updateMsgs(temp));
     }
   };

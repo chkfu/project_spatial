@@ -18,6 +18,7 @@ section#user_dashboard_content_speechRecog {
   }
 
   div#speechRecog_body {
+    position: relative;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     height: calc(100vh - 80px);
   }
@@ -50,8 +51,8 @@ div#speechRecog_infoBox {
       }
 
       svg {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         margin-left: auto;
         margin-right: auto;
         fill: colors.$grey_800;
@@ -93,10 +94,11 @@ div#speechRecog_infoBox {
 div#speechRecog_chatBoard {
   display: flex;
   overflow: auto;
+  position: relative;
   height: calc(100vh - 80px - 80px);
   flex-direction: column;
-  padding: 20px 80px 20px 18px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 20px 20px 80px 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 3px 1px;
 
   div.speechRecog_chats_system {
     display: flex; 
@@ -164,6 +166,84 @@ div#speechRecog_chatBoard {
 }
 
 
+// SPEAKER PANEL
+
+div#speechRecog_speakerPanel {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 80px;
+  bottom: 84px;
+  opacity: 1;
+  z-index: 1000px;
+
+  div#speechRecog_speakerPanel_top {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    width: 25%;
+    min-width: 200px;
+    height: 100%;
+    z-index: 1100;
+
+    div.speechRecog_option_speaker {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 72px;
+      height: 72px;
+      transform: translateY(8px);
+      cursor: pointer;  
+
+      svg {
+        width: 28px;
+        height: 28px;
+        fill: colors.$grey_800;
+        &.recog_icon_active {
+          fill: #d9480f;
+        }
+      }
+
+      p {
+        font-size: fonts.$para_size_100;
+        color: colors.$grey_800;
+        line-height: 12px;
+        &.recog_icon_active {
+          color: #d9480f;
+        }
+      }
+
+      &:hover {
+        svg {
+          fill: #fd7e14;
+        }
+        p {
+          color: #fd7e14;
+        }
+      }
+    }
+  }
+
+  div#speechRecog_speakerPanel_bottom {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    width: 30%;
+    min-width: 240px;
+    height: 100%;
+    background-color: colors.$grey_000;
+    z-index: 1000;
+    transform: perspective(100px) rotateX(30deg);
+    box-shadow: rgba(99, 99, 99, 0.2) 2px 1px 4px 1px;
+  }
+}
+
+
+
 // CONTROL PANEL 
 
 div#speechRecog_controlPanel {
@@ -198,8 +278,8 @@ div#speechRecog_controlPanel {
 
     svg {
       margin-top: 12px;
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       &.recog_icon_active {
         fill: #d9480f;
       }
@@ -364,7 +444,6 @@ div.speechRecog_hidden_infoList {
       }
     }
   }
-
 }
 
 
