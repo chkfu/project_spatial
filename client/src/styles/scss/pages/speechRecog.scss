@@ -75,9 +75,14 @@ div#speechRecog_infoBox {
       }
     }
  
-    h4 {
-      margin-left: 12px;
-      font-size: fonts.$para_size_600;
+    .speechRecog_infoBox_title {
+      overflow: hidden;
+      width: 180px;
+      margin-left: 14px;
+      font-size: fonts.$para_size_500;
+      transform: translateY(-4px);
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }

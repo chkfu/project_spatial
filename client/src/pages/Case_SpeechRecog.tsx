@@ -38,16 +38,16 @@ export default function SpeechRecog() {
 
 function SRecogInfoBox() {
   // Redux
+  const redux_case = useAppSelector(state => state.interview);
   const redux_recog = useAppSelector(state => state.recognizer);
   // Return
   return (
     <div id="speechRecog_infoBox">
       {/* 1. informaiton box left */}
       <div id="speechRecog_infoBox_left">
-        <button type="button">
-          <img className="speechRecog_infoBox_icons" src="/icons/chevron-left.svg" alt="left icon" />
-        </button>
-        <h4>{redux_recog.currentSpeaker}</h4>
+        <SVG_Btn_Detector type="Prev Page" />
+        <h4 className="speechRecog_infoBox_title">
+          {redux_case.title.length > 0 ? `${redux_case.title}` : `Case ${redux_case._id}`}</h4>
       </div>
       {/* 2. informaiton box right */}
       <div id="speechRecog_infoBox_right">
@@ -189,6 +189,18 @@ function SVG_Btn_Detector(props: { type: string; }) {
   const redux_case = useAppSelector(state => state.interview);
   const redux_recog = useAppSelector(state => state.recognizer);
   const dispatch = useAppDispatch();
+  // Prev Page
+  if (props.type === "Prev Page") {
+    return (
+      <Link to="/">
+        <button type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
+            <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+          </svg>
+        </button>
+      </Link>
+    );
+  }
   // Language
   if (props.type === "Language") {
     return (

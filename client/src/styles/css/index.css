@@ -831,9 +831,14 @@ div#speechRecog_infoBox div#speechRecog_infoBox_left button p, div#speechRecog_i
 div#speechRecog_infoBox div#speechRecog_infoBox_left button p.recog_icon_active, div#speechRecog_infoBox div#speechRecog_infoBox_right button p.recog_icon_active {
   color: #d9480f;
 }
-div#speechRecog_infoBox div#speechRecog_infoBox_left h4, div#speechRecog_infoBox div#speechRecog_infoBox_right h4 {
-  margin-left: 12px;
-  font-size: 22px;
+div#speechRecog_infoBox div#speechRecog_infoBox_left .speechRecog_infoBox_title, div#speechRecog_infoBox div#speechRecog_infoBox_right .speechRecog_infoBox_title {
+  overflow: hidden;
+  width: 180px;
+  margin-left: 14px;
+  font-size: 20px;
+  transform: translateY(-4px);
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 div#speechRecog_chatBoard {
