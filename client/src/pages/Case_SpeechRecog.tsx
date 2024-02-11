@@ -2,11 +2,16 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo } from '../../src/redux/slices/recognizerSlice';
+
 import UserSidebar from "../components/UserSidebar";
+
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { updateLang } from "../redux/slices/interviewSlice";
+import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo, showLangList } from '../../src/redux/slices/recognizerSlice';
 import { SRecogStarter, SRecogTerminator } from "../../src/components/SpeechRecongnition";
-import { DateInterpreter, TimeInterpreter } from "../../src/util/DateInterpreter";
+import { DateInterpreter, TimeInterpreter } from "../util/dateInterpreter";
+import { LanguageList } from "../util/declarations";
+import { useDispatch } from "react-redux";
 
 
 
@@ -22,6 +27,7 @@ export default function SpeechRecog() {
         <SRecogBody />
       </section>
       {/* 2. Hidden Elements */}
+      <SRecog_LangList />
       <SRecog_ExtendList />
     </main >
   );
@@ -45,6 +51,7 @@ function SRecogInfoBox() {
       </div>
       {/* 2. informaiton box right */}
       <div id="speechRecog_infoBox_right">
+        <SVG_Btn_Detector type="Language" />
         <SVG_Btn_Detector type="Info" />
       </div>
     </div>
@@ -52,6 +59,7 @@ function SRecogInfoBox() {
 }
 
 function SRecog_ExtendList() {
+
   // Redux
   const redux_recog = useAppSelector(state => state.recognizer);
   const redux_case = useAppSelector(state => state.interview);
@@ -65,16 +73,46 @@ function SRecog_ExtendList() {
         <SRecog_InfoList_Rows heading="Date" content={DateInterpreter(redux_case.time, 'long')} />
         <SRecog_InfoList_Rows heading="Time" content={TimeInterpreter(redux_case.time, '12')} />
         <SRecog_InfoList_Rows heading="Venue" content={redux_case.venue} />
-        <SRecog_InfoList_Rows heading="Language" content={redux_case.language} />
+        <SRecog_InfoList_Rows heading="Language" content={LanguageList[redux_case.language]} />
       </div>
-
       <div className="speechRecog_hidden_infoList_btnBox">
         <Link to='/'>
           <button className={`infoList_btnEdit ${redux_recog.CaseInfoStatus && "infoList_btnEdit_active"}`} type="button">Edit</button>
         </Link>
       </div>
-
     </div>
+  );
+}
+
+function SRecog_LangList() {
+  const lang_arr: string[] = [];
+  const redux_recog = useAppSelector(state => state.recognizer);
+  const dispatch = useAppDispatch();
+  for (const entry in LanguageList) {
+    lang_arr.push(entry);
+  }
+  return (
+    <>
+      <div className={`speechRecog_hidden_langList ${redux_recog.LangListStatus ? "speechRecog_hidden_langList_active" : ""}`}>
+        <ul>
+          {
+            lang_arr.map((lang: string) => {
+              return (
+                <li key={lang} className="langList_options"
+                  onClick={() => dispatch(updateLang(lang))}>
+                  {LanguageList[lang]}
+                </li>
+              );
+            })
+          }
+        </ul>
+        <div className={`speechRecog_hidden_langList_end ${redux_recog.LangListStatus ? "speechRecog_hidden_langList_end_active" : ""}`}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+          </svg>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -148,8 +186,21 @@ function SRecogControl() {
 function SVG_Btn_Detector(props: { type: string; }) {
 
   // Redux 
+  const redux_case = useAppSelector(state => state.interview);
   const redux_recog = useAppSelector(state => state.recognizer);
   const dispatch = useAppDispatch();
+  // Language
+  if (props.type === "Language") {
+    return (
+      <button type="button" onClick={() => { dispatch(showLangList()); }}>
+        <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.LangListStatus && "recog_icon_active"}`} viewBox="0 0 16 16">
+          <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z" />
+          <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
+        </svg>
+        <p className={`${redux_recog.LangListStatus && "recog_icon_active"}`}>{LanguageList[redux_case.language]}</p>
+      </button>
+    );
+  }
   // Info
   if (props.type === "Info") {
     return (

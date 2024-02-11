@@ -34,6 +34,7 @@ div#speechRecog_infoBox {
 
     button {
       position: relative;
+      margin-left: 2vw;
       border: none;
       background-color: transparent;
       text-decoration: none;
@@ -228,20 +229,89 @@ div#speechRecog_controlPanel {
 }
 
 // Hidden - Info List
+
+div.speechRecog_hidden_langList {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 80px;
+  right: calc(7vw + 28px);
+  width: 180px;
+  max-height: 0;
+  z-index: 300;
+  opacity: 0.8;
+  color: transparent;
+  transition: all 0.7s;
+  transition-delay: 0s;
+
+  &.speechRecog_hidden_langList_active {
+    max-height: 360px;
+    background-color: colors.$grey_700;
+    color: colors.$grey_200;
+    opacity: 1;
+    transition-delay: 0.4s;
+  }
+
+  ul {
+    overflow-y:scroll;
+    width: 100%;
+
+    li.langList_options {
+      display: flex; 
+      width: 100%;
+      height: 40px;
+      padding: 8px 24px;
+      font-size: fonts.$para_size_200;
+      cursor: pointer;
+      transition: all 0.7s;
+      &:hover {
+        color: colors.$grey_000;
+        background-color: colors.$grey_600;
+        transition: all 0.7s;
+      }
+    }
+  }
+
+  div.speechRecog_hidden_langList_end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid colors.$grey_000;
+    padding: 4px;
+    visibility: collapse;
+    transition: all 0.5s ease-in-out;
+    svg {
+      fill: transparent;
+      width: 12px;
+      height: 12px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &.speechRecog_hidden_langList_end_active {
+      visibility: visible;
+      svg {
+        fill: #666666;
+        transition: all 0.4s ease-in-out;
+      }
+    }
+  }
+}
+
 div.speechRecog_hidden_infoList {
   position: absolute;
   width: 320px;
   max-height: 0;
   top: 80px;
-  right: 28px;
+  right: 5vw;
   padding: 0 24px;
   color: transparent;
   background-color: colors.$grey_700;
   font-size: fonts.$para_size_200;
   opacity: 0.8;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  transition: all 0.5s ease-in-out;
-  z-index: 100;
+  transition: all 0.4s ease-in-out;
+  z-index: 300;
+  visibility: collapse;
 
   &.speechRecog_hidden_infoList_active {
     max-height: 100vh;
@@ -249,6 +319,7 @@ div.speechRecog_hidden_infoList {
     padding: 24px;
     color: colors.$grey_200;
     opacity: 1;
+    visibility: visible;
     }
     
     div.speechRecog_hidden_infoList_btnBox {

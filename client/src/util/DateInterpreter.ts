@@ -34,7 +34,7 @@ export function TimeInterpreter(dateNum: number, form?: string): string {
 function twelveStyle(num: number, type: string): string {
   // 1. hours
   if (type === 'hour' && num < 13)
-    return num.toString();
+    return num === 0 ? '12' : num.toString();
   if (type === 'hour' && num > 13)
     return (num - 12).toString();
   // 2. minutes

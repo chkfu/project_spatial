@@ -3,9 +3,12 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { updateId, updateTitle, updateSummary, updateTime, updateVenue, updateHost, updateGuest, updateLang, updateAuth, resetAll } from '../redux/slices/interviewSlice';
+
 import UserSidebar from "../components/UserSidebar";
 import TextFieldReuse from '../formik/reuse/TextFieldReuse';
 import SelectFieldReuse from '../formik/reuse/SelectFieldReuse';
+
+import { LanguageList } from '../util/declarations';
 import bg_video from '/videos/caseinfo_bg_main.mp4';
 
 
@@ -46,23 +49,6 @@ function CaseRegister() {
   let td_yyyy: number = Number(new Date().getFullYear());
   let td_mm: number = Number(new Date().getMonth());
   let td_dd: number = Number(new Date().getDate());
-
-  const LanguageList: any = {
-    'en-uk': 'English',
-    "ar": "Arabic",
-    "zh-yue": "Cantonese",
-    "fr": "French",
-    "de": "German",
-    "hi": "Hindi",
-    "it": "Italian",
-    "ja": "Japanese",
-    "ko": "Korean",
-    "zh-cn": "Mandarin",
-    "es": "Spanish",
-    "sw": "Swedish",
-    "th": "Thai",
-    "tr": "Turkish"
-  };
 
   // INITIAL VALUES
   const caseInfoInitialValues = {

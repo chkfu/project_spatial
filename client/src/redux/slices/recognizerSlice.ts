@@ -14,6 +14,7 @@ interface RecognizerState {
   recognizerStatus: string;
   // 3. display - hidden information
   CaseInfoStatus: boolean;
+  LangListStatus: boolean;
 }
 
 // Define the initial state using that type
@@ -28,7 +29,8 @@ const initialState: RecognizerState = {
   recordingStatus: false,
   recognizerStatus: "inactive",
   // 3. display - hidden information
-  CaseInfoStatus: false
+  CaseInfoStatus: false,
+  LangListStatus: false,
 };
 
 export const recognizerSlice = createSlice({
@@ -80,11 +82,26 @@ export const recognizerSlice = createSlice({
     },
     // 3. display - hidden information
     showCaseInfo: (state) => {
-      if (!state.CaseInfoStatus)
+      if (!state.CaseInfoStatus) {
         state.CaseInfoStatus = true;
-      else
+        state.LangListStatus = false;
+      }
+
+      else {
         state.CaseInfoStatus = false;
-    }
+        state.LangListStatus = false;
+      }
+    },
+    showLangList: (state) => {
+      if (!state.LangListStatus) {
+        state.LangListStatus = true;
+        state.CaseInfoStatus = false;
+      }
+      else {
+        state.LangListStatus = false;
+        state.CaseInfoStatus = false;
+      }
+    },
   },
 });
 
@@ -96,7 +113,8 @@ export const {
   setRecording,
   breakSection,
   updateSectNum,
-  showCaseInfo
+  showCaseInfo,
+  showLangList
 } = recognizerSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
