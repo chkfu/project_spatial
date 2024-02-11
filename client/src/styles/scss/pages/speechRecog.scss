@@ -241,15 +241,13 @@ div.speechRecog_hidden_langList {
   z-index: 300;
   opacity: 0.8;
   color: transparent;
-  transition: all 0.7s;
-  transition-delay: 0s;
+  transition: all 0.4s;
 
   &.speechRecog_hidden_langList_active {
     max-height: 360px;
     background-color: colors.$grey_700;
     color: colors.$grey_200;
     opacity: 1;
-    transition-delay: 0.4s;
   }
 
   ul {
@@ -263,11 +261,9 @@ div.speechRecog_hidden_langList {
       padding: 8px 24px;
       font-size: fonts.$para_size_200;
       cursor: pointer;
-      transition: all 0.7s;
       &:hover {
         color: colors.$grey_000;
         background-color: colors.$grey_600;
-        transition: all 0.7s;
       }
     }
   }
@@ -277,20 +273,20 @@ div.speechRecog_hidden_langList {
     justify-content: center;
     align-items: center;
     border-top: 2px solid colors.$grey_000;
-    padding: 4px;
+    padding: 2px;
     visibility: collapse;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.4s;
     svg {
       fill: transparent;
       width: 12px;
       height: 12px;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.2s;
     }
 
     &.speechRecog_hidden_langList_end_active {
       visibility: visible;
       svg {
-        fill: #666666;
+        fill: colors.$grey_300;
         transition: all 0.4s ease-in-out;
       }
     }
