@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
 // Define a type for the slice state
-interface RecognizerState {
+export interface RecognizerState {
   // 1. main states - passive
   currentCaseId: string;
   currentSpeaker: string;
@@ -10,7 +10,7 @@ interface RecognizerState {
   newMsg: string[][];
   // 2. additional status - buttons
   infoStatus: boolean;
-  recordingStatus: boolean;
+  recordingStatus: string,
   recognizerStatus: string;
   // 3. display - hidden information
   CaseInfoStatus: boolean;
@@ -26,7 +26,7 @@ const initialState: RecognizerState = {
   newMsg: [["system", "#### Section 1 ####"]],
   // 2. additional status - buttons
   infoStatus: false,
-  recordingStatus: false,
+  recordingStatus: "inactive",
   recognizerStatus: "inactive",
   // 3. display - hidden information
   CaseInfoStatus: false,
@@ -60,11 +60,8 @@ export const recognizerSlice = createSlice({
     breakSection: (state, action: PayloadAction<string[]>) => {
       state.newMsg = [...state.newMsg, action.payload];
     },
-    setRecording: (state) => {
-      if (state.recordingStatus === true)
-        state.recordingStatus = false;
-      else if (state.recordingStatus === false)
-        state.recordingStatus = true;
+    setRecording: (state, action: PayloadAction<string>) => {
+      state.recordingStatus = action.payload;
     },
     setRecognizer: (state) => {
       if (state.recognizerStatus === "inactive")
@@ -77,7 +74,7 @@ export const recognizerSlice = createSlice({
     resetRecog: (state) => {
       state.newMsg = [["system", "#### Section 1 ####"]];
       state.recognizerStatus = "inactive";
-      state.recordingStatus = false;
+      state.recordingStatus = 'inactive';
       state.currentSection = 1;
     },
     // 3. display - hidden information

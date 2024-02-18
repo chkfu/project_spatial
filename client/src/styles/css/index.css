@@ -784,6 +784,7 @@ section#user_dashboard_content_speechRecog div#speechRecog_infoBox {
   justify-content: space-between;
   align-items: center;
   padding: 12px 7%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 3px 1px;
 }
 section#user_dashboard_content_speechRecog div#speechRecog_body {
   position: relative;
@@ -842,11 +843,21 @@ div#speechRecog_infoBox div#speechRecog_infoBox_left .speechRecog_infoBox_title,
   text-overflow: ellipsis;
 }
 
+div#speechRecog_audioField {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 3px 1px;
+  background: #eeeeee;
+}
+
 div#speechRecog_chatBoard {
   display: flex;
   overflow: auto;
   position: relative;
-  height: calc(100vh - 80px - 80px);
+  height: calc(100vh - 80px - 80px - 64px);
   flex-direction: column;
   padding: 20px 20px 80px 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 3px 1px;
@@ -1019,7 +1030,8 @@ div#speechRecog_controlPanel button p {
   width: 100%;
   height: 36px;
   line-height: 12px;
-  transform: translateY(-8px);
+  font-size: 12px;
+  transform: translateY(-12px);
 }
 div#speechRecog_controlPanel button p.recog_icon_active {
   color: #d9480f;
@@ -1124,6 +1136,7 @@ div.speechRecog_hidden_infoList div.speechRecog_hidden_infoList_btnBox button.in
   border-radius: 20px;
   font-weight: 800;
   color: #000000;
+  font-size: 14px;
   background-color: #f7b233;
   opacity: 0;
   cursor: pointer;

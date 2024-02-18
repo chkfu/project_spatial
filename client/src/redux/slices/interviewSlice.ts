@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import short from 'short-uuid';
 
 // Define a type for the slice state
-interface InterviewState {
+export interface InterviewState {
   _id: string;
   time: number;
   venue: string;

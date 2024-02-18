@@ -34,7 +34,6 @@ export default function SRecog_SpeakerDetector(props: { speaker: string, activat
     );
 
   // Guests
-
   if (props.speaker === 'guest' && props.activation) {
     return (
       <div className="speechRecog_option_speaker">

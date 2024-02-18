@@ -13,6 +13,10 @@ import { updateLang } from "../redux/slices/interviewSlice";
 import { switchSpeaker, closeLists } from '../../src/redux/slices/recognizerSlice';
 import { DateInterpreter, TimeInterpreter } from "../util/dateInterpreter";
 import { LanguageList } from "../util/declarations";
+import { mediaRecorder, audioStart, audioPause, audioResume } from "../components/SRecog_AudioRecorder";
+
+
+
 
 
 
@@ -39,6 +43,7 @@ export default function SpeechRecog() {
     });
   }, []);
 
+
   // Return
   return (
     <main id="user_dashboard_speechRecog" className="user_dashboard_frame">
@@ -51,7 +56,7 @@ export default function SpeechRecog() {
       {/* 2. Hidden Elements */}
       <SRecog_LangList />
       <SRecog_ExtendList />
-    </main >
+    </main>
   );
 }
 
@@ -106,26 +111,33 @@ function SRecog_ExtendList() {
   );
 }
 
+export const mediaRecorderContext = React.createContext({ audioStart, audioPause, audioResume });
+
 function SRecogBody() {
   // Use Ref
   const containerRef = useRef<HTMLDivElement>(null);
   // Redux
-  const redux_recog = useAppSelector(state => state.recognizer);  // Use Effect
+  const redux_recog = useAppSelector(state => state.recognizer);
+
+  // Use Effect
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
-  }, [redux_recog.newMsg]);
+  }, [redux_recog.newMsg]); // Remarks: Chatboard always scroll to bottom as piority
+
   // Return
   return (
-    <div id="speechRecog_body">
-      <SRecog_ChatBoard containerRef={containerRef} />
-      <SRecog_SpeakerPanel />
-      <SRecog_FnControl />
-    </div>
+    <mediaRecorderContext.Provider value={{ audioStart, audioPause, audioResume }}>
+      <div id="speechRecog_body">
+        <SRecog_AudioField />
+        <SRecog_ChatBoard containerRef={containerRef} />
+        <SRecog_SpeakerPanel />
+        <SRecog_FnControl />
+      </div>
+    </mediaRecorderContext.Provider >
   );
 }
-
 
 
 // ADDITIONAL COMPONENTS
@@ -149,22 +161,22 @@ function SRecog_LangList() {
   }
   return (
     <div className={`speechRecog_hidden_langList ${redux_recog.LangListStatus ? "speechRecog_hidden_langList_active" : ""}`}>
-      <SRecog_LangOptionList arr={lang_arr} />
+      <SRecog_LangOptionList lang_arr={lang_arr} />
       <SRecog_SVGDetector type="LangList Reminder" />
     </div>
   );
 }
 
-function SRecog_LangOptionList(props: { arr: string[]; }) {
+function SRecog_LangOptionList(props: { lang_arr: string[]; }) {
   const dispatch = useAppDispatch();
   return (
     <ul>
       {
-        props.arr.map((lang: string) => {
+        props.lang_arr.map((lang_code: string) => {
           return (
-            <li key={lang} className="langList_options"
-              onClick={() => dispatch(updateLang(lang))}>
-              {LanguageList[lang]}
+            <li key={lang_code} className="langList_options"
+              onClick={() => dispatch(updateLang(lang_code))}>
+              {LanguageList[lang_code]}
             </li>
           );
         })
@@ -175,6 +187,14 @@ function SRecog_LangOptionList(props: { arr: string[]; }) {
 
 
 // 2. Body Area
+
+function SRecog_AudioField() {
+  return (
+    <div id="speechRecog_audioField">
+      Audio
+    </div>
+  );
+}
 
 function SRecog_ChatBoard(props: { containerRef: React.RefObject<HTMLDivElement>; }) {
   // Redux
@@ -227,7 +247,7 @@ function SRecog_FnControl() {
       <div id="controlPanel_msgController">
         <SRecog_SVGDetector type="Host" />
         <SRecog_SVGDetector type="Section Break" />
-        <SRecog_SVGDetector type="Recording" />
+        <SRecog_SVGDetector type="Recorder" />
         <SRecog_SVGDetector type="Recognizer" />
         <SRecog_SVGDetector type="Erase Messages" />
         <SRecog_SVGDetector type="Redirect" />
