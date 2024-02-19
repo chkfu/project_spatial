@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '../redux/hooks';
 // TS fucntions
 import { util_recognizer_store } from '../util/Util_Recognizer_store';
 import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo, showLangList, setMediaStatus, setUserDeviceStatus } from '../redux/slices/recognizerSlice';
-import { SRecogStarter, SRecogTerminator } from './SRecog_SpeechRecognizer';
+import { SRecogStarter, SRecogTerminator } from './Comp_SpeechRecognizer';
 import { util_langlist } from '../util/Util_List_lang';
 import { mediaRecorder } from './Comp_AudioRecorder';
 import { mediaRecorderContext } from '../pages/Case_SpeechRecog';

@@ -15,7 +15,7 @@ export function util_date_interpreter(dateNum: number, style?: string): string {
 }
 
 
-export function TimeInterpreter(dateNum: number, form?: string): string {
+export function util_timeInterpreter(dateNum: number, form?: string): string {
   // 1. declaration
   const date: Date = new Date(dateNum);
 
