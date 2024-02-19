@@ -1,5 +1,5 @@
 import { updateMsgs } from "../redux/slices/recognizerSlice";
-import { fn_recognizorInfo } from "../util/caseInformation";
+import { fn_recognizorInfo } from "../util/Util_Recognizer_store";
 
 
 

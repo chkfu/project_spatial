@@ -4,11 +4,11 @@ import * as Yup from 'yup';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { updateId, updateTitle, updateSummary, updateTime, updateVenue, updateHost, updateGuest, updateLang, updateAuth, resetAll } from '../redux/slices/interviewSlice';
 
-import UserSidebar from "../components/UserSidebar";
+import Comp_UserSidebar from '../components/Comp_UserSidebar';
 import TextFieldReuse from '../formik/reuse/TextFieldReuse';
 import SelectFieldReuse from '../formik/reuse/SelectFieldReuse';
 
-import { LanguageList } from '../util/declarations';
+import { util_langlist } from '../util/Util_List_lang';
 import bg_video from '/videos/caseinfo_bg_main.mp4';
 
 
@@ -17,7 +17,7 @@ import bg_video from '/videos/caseinfo_bg_main.mp4';
 export default function User() {
   return (
     <main className="user_dashboard_frame">
-      <UserSidebar />
+      <Comp_UserSidebar />
       {/* B. DashBoard */}
       <section id="user_dashboard_content_caseinfo" className="user_dashboard_contents">
         <video autoPlay muted id="caseinfo_video_bg">
@@ -110,7 +110,7 @@ function CaseRegister() {
                 <CaseInfo_TextField name='guest' value={interview._guest} type="text" dispatch={dispatch} setFieldValue={setFieldValue} />
               </div>
               <div className="caseInfo_flex_double_input_frame">
-                <CaseInfo_SelectField name='language' value={interview.language} label="language" path="case-information" options={LanguageList} changeFn={(event: React.ChangeEvent<HTMLSelectElement>) => ChangeSelectIdentifier(event, 'language', dispatch, setFieldValue)} />
+                <CaseInfo_SelectField name='language' value={interview.language} label="language" path="case-information" options={util_langlist} changeFn={(event: React.ChangeEvent<HTMLSelectElement>) => ChangeSelectIdentifier(event, 'language', dispatch, setFieldValue)} />
                 <CaseInfo_TextField name='created_at' value={`${td_yyyy.toString()}/${temp_mm + 1 > 10 ? ((td_mm + 1).toString()) : ("0" + (td_mm + 1).toString())}/${td_dd > 10 ? td_dd.toString() : ("0" + temp_dd.toString())}`} dispatch={dispatch} setFieldValue={setFieldValue} disabled={true} />
               </div>
             </div>

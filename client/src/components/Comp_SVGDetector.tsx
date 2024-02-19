@@ -2,18 +2,26 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 // TS fucntions
-import { fn_recognizorInfo } from '../util/caseInformation';
-import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo, showLangList } from '../redux/slices/recognizerSlice';
+import { util_recognizer_store } from '../util/Util_Recognizer_store';
+import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo, showLangList, setMediaStatus, setUserDeviceStatus } from '../redux/slices/recognizerSlice';
 import { SRecogStarter, SRecogTerminator } from './SRecog_SpeechRecognizer';
-import { LanguageList } from '../util/declarations';
-import { mediaRecorder } from './SRecog_AudioRecorder';
+import { util_langlist } from '../util/Util_List_lang';
+import { mediaRecorder } from './Comp_AudioRecorder';
 import { mediaRecorderContext } from '../pages/Case_SpeechRecog';
+import { createMediaStream } from './Comp_AudioRecorder';
 
 
 export default function SRecog_SVGDetector(props: { type: string; }) {
 
   // REDUX
   const redux_recog = useAppSelector(state => state.recognizer);
+
+  useEffect(() => {
+    function updateMediaRecorder() {
+      return mediaRecorder;
+    }
+    updateMediaRecorder();
+  }, [mediaRecorder, redux_recog.mediaStatus]);
 
   // USE EFFECT
   useEffect(() => {
@@ -23,16 +31,13 @@ export default function SRecog_SVGDetector(props: { type: string; }) {
     updateSpeaker();
   }, [redux_recog.currentSpeaker]);
 
-  useEffect(() => {
-    function updateMediaRecorder() {
-      return mediaRecorder;
-    }
-    updateMediaRecorder();
-  }, []);
+
+
+
 
 
   // DECLARATIONS
-  fn_recognizorInfo.curr_speaker = redux_recog.currentSpeaker;
+  util_recognizer_store.curr_speaker = redux_recog.currentSpeaker;
   /*  Remarks: 
       React cannot update current speaker, if we only pass the state into the function  */
 
@@ -67,36 +72,70 @@ export default function SRecog_SVGDetector(props: { type: string; }) {
     return;
   }
 
-  if (props.type === "Recorder" && !mediaRecorder) {
-    return (
-      <button>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
-            <path d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4 4 0 0 0 12 8V7a.5.5 0 0 1 1 0zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a5 5 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4m3-9v4.879l-1-1V3a2 2 0 0 0-3.997-.118l-.845-.845A3.001 3.001 0 0 1 11 3" />
-            <path d="m9.486 10.607-.748-.748A2 2 0 0 1 6 8v-.878l-1-1V8a3 3 0 0 0 4.486 2.607m-7.84-9.253 12 12 .708-.708-12-12z" />
-          </svg>
-          <p className="recog_icon_inactive">
-            Audio Inactive
-          </p>
-        </div>
-      </button >);
-  }
 
+  if (props.type === "Recorder") {
 
-  if (props.type === "Recorder" && (!mediaRecorder || mediaRecorder.state === 'inactive')) {
-    return <SVG_AudioBtn_Inactive />;
-  }
+    // condition 1:  media status locked
 
-  if (props.type === "Recorder" && (mediaRecorder && mediaRecorder.state === 'recording')) {
-    return <SVG_AudioBtn_Start />;
-  }
+    if (!redux_recog.mediaStatus) {
+      const dispatch = useAppDispatch();
+      return (
+        <button onClick={() => {
+          if (confirm("`Do you confirm to unlock the media stream? ")) {
+            createMediaStream((success: boolean) => {
+              dispatch(setUserDeviceStatus(success));
+            });
+            dispatch(setMediaStatus());
+          };
+        }
+        }>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
+              <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1" />
+            </svg>
+            <p className="recog_icon_inactive">
+              Audio Locked
+            </p>
+          </div>
+        </button >
+      );
+    }
 
-  if (props.type === "Recorder" && (mediaRecorder && mediaRecorder.state === 'paused')) {
-    return <SVG_AudioBtn_Pause />;
-  }
+    // condition 2: media status unlocked
+    else {
+      // condition 2a: media connected, failed to get device
+      if (!redux_recog.userDeviceStatus) {
+        return (
+          <button onClick={() => { console.log('no device btn', mediaRecorder); }}>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
+                <path d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0zM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0" />
+              </svg>
+              <p className="recog_icon_inactive">
+                No Device
+              </p>
+            </div>
+          </button>
+        );
+      }
 
-  if (props.type === "Recorder" && redux_recog.recordingStatus === "resumed" && (mediaRecorder && mediaRecorder.state === 'recording')) {
-    return <SVG_AudioBtn_Resume />;
+      // conidition 2b: media connected, able to get device
+      else {
+        // 2bi: media and device connected, check recording status
+        if (redux_recog.recordingStatus === 'inactive') {
+          return <SVG_AudioBtn_Inactive />;
+        }
+        if (redux_recog.recordingStatus === 'started') {
+          return <SVG_AudioBtn_Start />;
+        }
+        if (redux_recog.recordingStatus === 'paused') {
+          return <SVG_AudioBtn_Pause />;
+        }
+        if (redux_recog.recordingStatus === 'resumed') {
+          return <SVG_AudioBtn_Resume />;
+        }
+      }
+    }
   }
 
 
@@ -134,11 +173,11 @@ function SVG_LangBtn() {
   const dispatch = useAppDispatch();
   return (
     <button type="button" onClick={() => { dispatch(showLangList()); }}>
-      <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.LangListStatus && "recog_icon_active"}`} viewBox="0 0 16 16">
+      <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.langListStatus && "recog_icon_active"}`} viewBox="0 0 16 16">
         <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z" />
         <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
       </svg>
-      <p className={`${redux_recog.LangListStatus && "recog_icon_active"}`}>{LanguageList[redux_case.language]}</p>
+      <p className={`${redux_recog.langListStatus && "recog_icon_active"}`}>{util_langlist[redux_case.language]}</p>
     </button>
   );
 }
@@ -146,7 +185,7 @@ function SVG_LangBtn() {
 function SVG_LangList_Reminder() {
   const redux_recog = useAppSelector(state => state.recognizer);
   return (
-    <div className={`speechRecog_hidden_langList_end ${redux_recog.LangListStatus ? "speechRecog_hidden_langList_end_active" : ""}`}>
+    <div className={`speechRecog_hidden_langList_end ${redux_recog.langListStatus ? "speechRecog_hidden_langList_end_active" : ""}`}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
       </svg>
@@ -159,11 +198,11 @@ function SVG_InfoBtn() {
   const dispatch = useAppDispatch();
   return (
     <button type="button" onClick={() => dispatch(showCaseInfo())}>
-      <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.CaseInfoStatus && "recog_icon_active"}`} viewBox="0 0 16 16">
+      <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.caseInfoStatus && "recog_icon_active"}`} viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
       </svg>
-      <p className={`${redux_recog.CaseInfoStatus && "recog_icon_active"}`}>Info</p>
+      <p className={`${redux_recog.caseInfoStatus && "recog_icon_active"}`}>Info</p>
     </button>
   );
 }
@@ -196,7 +235,12 @@ function SVG_AudioBtn_Inactive() {
   const dispatch = useAppDispatch();
   const { audioStart } = React.useContext(mediaRecorderContext);
   return (
-    <button onClick={() => { dispatch(setRecording('started')); audioStart(); }}>
+    <button onClick={() => {
+      dispatch(setRecording('started'));
+      audioStart();
+      SRecogStarter(dispatch);
+      dispatch(setRecognizer());
+    }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
           <path d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4 4 0 0 0 12 8V7a.5.5 0 0 1 1 0zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a5 5 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4m3-9v4.879l-1-1V3a2 2 0 0 0-3.997-.118l-.845-.845A3.001 3.001 0 0 1 11 3" />
@@ -214,7 +258,12 @@ function SVG_AudioBtn_Start() {
   const dispatch = useAppDispatch();
   const { audioPause } = React.useContext(mediaRecorderContext);
   return (
-    <button onClick={() => { dispatch(setRecording('paused')); audioPause(); }}>
+    <button onClick={() => {
+      dispatch(setRecording('paused'));
+      audioPause();
+      SRecogTerminator();
+      dispatch(setRecognizer());
+    }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_active" viewBox="0 0 16 16">
           <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
@@ -232,7 +281,12 @@ function SVG_AudioBtn_Pause() {
   const dispatch = useAppDispatch();
   const { audioResume } = React.useContext(mediaRecorderContext);
   return (
-    <button onClick={() => { dispatch(setRecording('resumed')); audioResume(); }}>
+    <button onClick={() => {
+      dispatch(setRecording('resumed'));
+      audioResume();
+      SRecogStarter(dispatch);
+      dispatch(setRecognizer());
+    }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
           <path d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4 4 0 0 0 12 8V7a.5.5 0 0 1 1 0zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a5 5 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4m3-9v4.879l-1-1V3a2 2 0 0 0-3.997-.118l-.845-.845A3.001 3.001 0 0 1 11 3" />
@@ -250,7 +304,12 @@ function SVG_AudioBtn_Resume() {
   const dispatch = useAppDispatch();
   const { audioPause } = React.useContext(mediaRecorderContext);
   return (
-    <button onClick={() => { dispatch(setRecording('paused')); audioPause(); }}>
+    <button onClick={() => {
+      dispatch(setRecording('paused'));
+      audioPause();
+      SRecogTerminator();
+      dispatch(setRecognizer());
+    }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_active" viewBox="0 0 16 16">
           <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
@@ -267,7 +326,10 @@ function SVG_AudioBtn_Resume() {
 function SVG_ScriptOnBtn() {
   const dispatch = useAppDispatch();
   return (
-    <button onClick={() => { SRecogStarter(dispatch); dispatch(setRecognizer()); }}>
+    <button onClick={() => {
+      SRecogStarter(dispatch);
+      dispatch(setRecognizer());
+    }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_active" viewBox="0 0 16 16">
           <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
@@ -284,7 +346,10 @@ function SVG_ScriptOnBtn() {
 function SVG_ScriptOffBtn() {
   const dispatch = useAppDispatch();
   return (
-    <button onClick={() => { SRecogTerminator(); dispatch(setRecognizer()); }}>
+    <button onClick={() => {
+      SRecogTerminator();
+      dispatch(setRecognizer());
+    }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />

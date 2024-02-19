@@ -1,4 +1,4 @@
-export function DateInterpreter(dateNum: number, style?: string): string {
+export function util_date_interpreter(dateNum: number, style?: string): string {
   const date: Date = new Date(dateNum);
   const monthList_long: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const monthList_short: string[] = ['Jan', 'Feb', 'Ma', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

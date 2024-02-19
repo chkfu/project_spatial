@@ -1,4 +1,4 @@
-import UserSidebar from "../components/UserSidebar";
+import Comp_UserSidebar from '../components/Comp_UserSidebar';
 
 
 // (I) EXPORT
@@ -6,7 +6,7 @@ import UserSidebar from "../components/UserSidebar";
 export default function User() {
   return (
     <main id="user_dashboard_main_frame" className="user_dashboard_frame">
-      <UserSidebar />
+      <Comp_UserSidebar />
       {/* B. DashBoard */}
       <section id="user_dashboard_content_personal" className="user_dashboard_contents">
         <p className="user_section_fading user_section_fading01">Welcome, User.</p>

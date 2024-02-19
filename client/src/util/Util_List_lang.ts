@@ -1,4 +1,4 @@
-export const LanguageList: any = {
+export const util_langlist: any = {
   'en-uk': 'English',
   "ar": "Arabic",
   "zh-yue": "Cantonese",

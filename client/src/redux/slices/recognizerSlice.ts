@@ -10,11 +10,13 @@ export interface RecognizerState {
   newMsg: string[][];
   // 2. additional status - buttons
   infoStatus: boolean;
+  mediaStatus: boolean;
+  userDeviceStatus: boolean;
   recordingStatus: string,
   recognizerStatus: string;
   // 3. display - hidden information
-  CaseInfoStatus: boolean;
-  LangListStatus: boolean;
+  caseInfoStatus: boolean;
+  langListStatus: boolean;
 }
 
 // Define the initial state using that type
@@ -26,11 +28,13 @@ const initialState: RecognizerState = {
   newMsg: [["system", "#### Section 1 ####"]],
   // 2. additional status - buttons
   infoStatus: false,
+  mediaStatus: false,
+  userDeviceStatus: false,
   recordingStatus: "inactive",
   recognizerStatus: "inactive",
   // 3. display - hidden information
-  CaseInfoStatus: false,
-  LangListStatus: false,
+  caseInfoStatus: false,
+  langListStatus: false,
 };
 
 export const recognizerSlice = createSlice({
@@ -60,6 +64,13 @@ export const recognizerSlice = createSlice({
     breakSection: (state, action: PayloadAction<string[]>) => {
       state.newMsg = [...state.newMsg, action.payload];
     },
+    setMediaStatus: (state) => {
+      if (!state.mediaStatus)
+        state.mediaStatus = true;
+    },
+    setUserDeviceStatus: (state, action: PayloadAction<boolean>) => {
+      state.userDeviceStatus = action.payload;
+    },
     setRecording: (state, action: PayloadAction<string>) => {
       state.recordingStatus = action.payload;
     },
@@ -79,28 +90,28 @@ export const recognizerSlice = createSlice({
     },
     // 3. display - hidden information
     showCaseInfo: (state) => {
-      if (!state.CaseInfoStatus) {
-        state.CaseInfoStatus = true;
-        state.LangListStatus = false;
+      if (!state.caseInfoStatus) {
+        state.caseInfoStatus = true;
+        state.langListStatus = false;
       }
       else {
-        state.CaseInfoStatus = false;
-        state.LangListStatus = false;
+        state.caseInfoStatus = false;
+        state.langListStatus = false;
       }
     },
     showLangList: (state) => {
-      if (!state.LangListStatus) {
-        state.LangListStatus = true;
-        state.CaseInfoStatus = false;
+      if (!state.langListStatus) {
+        state.langListStatus = true;
+        state.caseInfoStatus = false;
       }
       else {
-        state.LangListStatus = false;
-        state.CaseInfoStatus = false;
+        state.langListStatus = false;
+        state.caseInfoStatus = false;
       }
     },
     closeLists: (state) => {
-      state.CaseInfoStatus = false;
-      state.LangListStatus = false;
+      state.caseInfoStatus = false;
+      state.langListStatus = false;
     }
   },
 });
@@ -109,6 +120,8 @@ export const {
   switchSpeaker,
   updateMsgs,
   resetRecog,
+  setMediaStatus,
+  setUserDeviceStatus,
   setRecognizer,
   setRecording,
   breakSection,

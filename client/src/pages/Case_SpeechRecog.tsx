@@ -3,26 +3,24 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 // imported components
-import UserSidebar from "../components/UserSidebar";
-import SRecog_SVGDetector from "../components/SRecog_SVGDetector";
-import SRecog_MsgDetector from "../components/SRecog_MsgDetector";
-import SRecog_SpeakerDetector from "../components/SRecog_SpeakerDetector";
+import UserSidebar from "../components/Comp_UserSidebar";
+import Comp_SVGDetector from "../components/Comp_SVGDetector";
+import Comp_MsgDetector from "../components/Comp_MsgDetector";
+import Comp_SpeakerDetector from "../components/Comp_SpeakerDetector";
 // imported functions
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { updateLang } from "../redux/slices/interviewSlice";
 import { switchSpeaker, closeLists } from '../../src/redux/slices/recognizerSlice';
-import { DateInterpreter, TimeInterpreter } from "../util/dateInterpreter";
-import { LanguageList } from "../util/declarations";
-import { mediaRecorder, audioStart, audioPause, audioResume } from "../components/SRecog_AudioRecorder";
-
-
-
+import { util_date_interpreter, util_timeInterpreter } from "../util/Util_Func_datetime.ts";
+import { util_langlist } from "../util/Util_List_lang.ts";
+import { audioStart, audioPause, audioResume } from "../components/Comp_AudioRecorder";
 
 
 
 // MAIN
 
 export default function SpeechRecog() {
+
 
   // Redux
   const redux_recog = useAppSelector(state => state.recognizer);
@@ -42,7 +40,6 @@ export default function SpeechRecog() {
       }
     });
   }, []);
-
 
   // Return
   return (
@@ -72,14 +69,14 @@ function SRecogInfoBox() {
     <div id="speechRecog_infoBox">
       {/* 1. informaiton box left */}
       <div id="speechRecog_infoBox_left">
-        <SRecog_SVGDetector type="Prev Page" />
+        <Comp_SVGDetector type="Prev Page" />
         <h4 className="speechRecog_infoBox_title">
           {redux_case.title.length > 0 ? `${redux_case.title}` : `Case ${redux_case._id}`}</h4>
       </div>
       {/* 2. informaiton box right */}
       <div id="speechRecog_infoBox_right">
-        <SRecog_SVGDetector type="Language" />
-        <SRecog_SVGDetector type="Info" />
+        <Comp_SVGDetector type="Language" />
+        <Comp_SVGDetector type="Info" />
       </div>
     </div>
   );
@@ -91,20 +88,22 @@ function SRecog_ExtendList() {
   const redux_recog = useAppSelector(state => state.recognizer);
   const redux_case = useAppSelector(state => state.interview);
   return (
-    <div className={`speechRecog_hidden_infoList ${redux_recog.CaseInfoStatus ? "speechRecog_hidden_infoList_active" : ""}`}>
+    <div className={`speechRecog_hidden_infoList ${redux_recog.caseInfoStatus ? "speechRecog_hidden_infoList_active" : ""}`}>
       <div className="speechRecog_hidden_tableLeft speechRecog_hidden_tableCol">
         <SRecog_InfoList_Rows heading="identifier" content={redux_case._id} />
         <SRecog_InfoList_Rows heading="Title" content={redux_case.title} />
         <SRecog_InfoList_Rows heading="Interviewer" content={redux_case.host} />
         <SRecog_InfoList_Rows heading="Attendee" content={redux_case._guest} />
-        <SRecog_InfoList_Rows heading="Date" content={DateInterpreter(redux_case.time, 'long')} />
-        <SRecog_InfoList_Rows heading="Time" content={TimeInterpreter(redux_case.time, '12')} />
+        <SRecog_InfoList_Rows heading="Date" content={util_date_interpreter(redux_case.time, 'long')} />
+        <SRecog_InfoList_Rows heading="Time" content={util_timeInterpreter(redux_case.time, '12')} />
         <SRecog_InfoList_Rows heading="Venue" content={redux_case.venue} />
-        <SRecog_InfoList_Rows heading="Language" content={LanguageList[redux_case.language]} />
+        <SRecog_InfoList_Rows heading="Language" content={util_langlist[redux_case.language]} />
       </div>
       <div className="speechRecog_hidden_infoList_btnBox">
         <Link to='/'>
-          <button className={`infoList_btnEdit ${redux_recog.CaseInfoStatus && "infoList_btnEdit_active"}`} type="button">Edit</button>
+          <button className={`infoList_btnEdit ${redux_recog.caseInfoStatus && "infoList_btnEdit_active"}`} type="button">
+            Edit
+          </button>
         </Link>
       </div>
     </div>
@@ -119,12 +118,22 @@ function SRecogBody() {
   // Redux
   const redux_recog = useAppSelector(state => state.recognizer);
 
+
   // Use Effect
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
   }, [redux_recog.newMsg]); // Remarks: Chatboard always scroll to bottom as piority
+
+  // useEffect(() => {
+  //   function activateStream() {
+  //     if (!redux_recog.mediaStatus) return;
+  //     createMediaStream();
+  //   }
+  //   activateStream();
+  // }, [redux_recog.mediaStatus]);
+
 
   // Return
   return (
@@ -156,13 +165,13 @@ function SRecog_InfoList_Rows(props: { heading: string, content: string; }) {
 function SRecog_LangList() {
   const lang_arr: string[] = [];
   const redux_recog = useAppSelector(state => state.recognizer);
-  for (const entry in LanguageList) {
+  for (const entry in util_langlist) {
     lang_arr.push(entry);
   }
   return (
-    <div className={`speechRecog_hidden_langList ${redux_recog.LangListStatus ? "speechRecog_hidden_langList_active" : ""}`}>
+    <div className={`speechRecog_hidden_langList ${redux_recog.langListStatus ? "speechRecog_hidden_langList_active" : ""}`}>
       <SRecog_LangOptionList lang_arr={lang_arr} />
-      <SRecog_SVGDetector type="LangList Reminder" />
+      <Comp_SVGDetector type="LangList Reminder" />
     </div>
   );
 }
@@ -176,7 +185,7 @@ function SRecog_LangOptionList(props: { lang_arr: string[]; }) {
           return (
             <li key={lang_code} className="langList_options"
               onClick={() => dispatch(updateLang(lang_code))}>
-              {LanguageList[lang_code]}
+              {util_langlist[lang_code]}
             </li>
           );
         })
@@ -207,7 +216,7 @@ function SRecog_ChatBoard(props: { containerRef: React.RefObject<HTMLDivElement>
           return (
             <div key={uuidv4()}>
               {!record && <p>Please switch on speech recognition.</p>}
-              {record[0] && <SRecog_MsgDetector speaker={record[0]} message={record[1]} />}
+              {record[0] && <Comp_MsgDetector speaker={record[0]} message={record[1]} />}
             </div>
           );
         })
@@ -228,13 +237,13 @@ function SRecog_SpeakerPanel() {
       <div id="speechRecog_speakerPanel_top">
         {
           redux_recog.currentSpeaker === 'host' ?
-            <SRecog_SpeakerDetector speaker='host' activation={true} num={1} /> :
-            <SRecog_SpeakerDetector speaker='host' activation={false} num={1} />
+            <Comp_SpeakerDetector speaker='host' activation={true} num={1} /> :
+            <Comp_SpeakerDetector speaker='host' activation={false} num={1} />
         }
         {
           redux_recog.currentSpeaker === 'guest' ?
-            <SRecog_SpeakerDetector speaker='guest' activation={true} num={2} /> :
-            <SRecog_SpeakerDetector speaker='guest' activation={false} num={2} />
+            <Comp_SpeakerDetector speaker='guest' activation={true} num={2} /> :
+            <Comp_SpeakerDetector speaker='guest' activation={false} num={2} />
         }
       </div>
     </div >
@@ -245,12 +254,12 @@ function SRecog_FnControl() {
   return (
     <div id="speechRecog_controlPanel">
       <div id="controlPanel_msgController">
-        <SRecog_SVGDetector type="Host" />
-        <SRecog_SVGDetector type="Section Break" />
-        <SRecog_SVGDetector type="Recorder" />
-        <SRecog_SVGDetector type="Recognizer" />
-        <SRecog_SVGDetector type="Erase Messages" />
-        <SRecog_SVGDetector type="Redirect" />
+        <Comp_SVGDetector type="Host" />
+        <Comp_SVGDetector type="Section Break" />
+        <Comp_SVGDetector type="Recorder" />
+        <Comp_SVGDetector type="Recognizer" />
+        <Comp_SVGDetector type="Erase Messages" />
+        <Comp_SVGDetector type="Redirect" />
       </div>
     </div>
   );
