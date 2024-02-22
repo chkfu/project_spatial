@@ -9,6 +9,7 @@ import { util_langlist } from '../util/Util_List_lang';
 import { mediaRecorder } from './Comp_AudioRecorder';
 import { mediaRecorderContext } from '../pages/Case_SpeechRecog';
 import { createMediaStream } from './Comp_AudioRecorder';
+import { util_recorder_store } from '../util/Util_Recorder_store';
 
 
 export default function SRecog_SVGDetector(props: { type: string; }) {
@@ -47,7 +48,6 @@ export default function SRecog_SVGDetector(props: { type: string; }) {
   // 1. Topbar Area
 
   if (props.type === "Prev Page") {
-    console.log(mediaRecorder);
     return <SVG_PrevPageBtn />;
   }
 
@@ -65,12 +65,6 @@ export default function SRecog_SVGDetector(props: { type: string; }) {
 
   if (props.type === "Section Break")
     return <SVG_SectionBreakBtn />;
-
-
-  if (props.type === "inactive") {
-    console.log(mediaRecorder);
-    return;
-  }
 
 
   if (props.type === "Recorder") {
@@ -367,7 +361,7 @@ function SVG_EraseBtn() {
   const redux_recog = useAppSelector(state => state.recognizer);
   const dispatch = useAppDispatch();
   return (
-    <button onClick={() => dispatch(resetRecog())}>
+    <button onClick={() => { dispatch(resetRecog()); util_recorder_store.audioURL = ""; }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.newMsg.length === 1 ? "recog_icon_disabled" : "recog_icon_inactive"}`} viewBox="0 0 16 16">
           <path fillRule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
@@ -382,10 +376,16 @@ function SVG_EraseBtn() {
 }
 
 function SVG_NextStepBtn() {
+  const { audioStop } = React.useContext(mediaRecorderContext);
   const redux_recog = useAppSelector(state => state.recognizer);
   return (
-    <Link to="/">
-      <button>
+    <Link to=''>
+      <button onClick={() => {
+        audioStop();
+        util_recognizer_store.final_msgs = [...redux_recog.newMsg];
+        console.log(util_recognizer_store.final_msgs);
+        console.log(util_recorder_store.audioURL);
+      }}>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.newMsg.length === 1 ? "recog_icon_disabled" : "recog_icon_inactive"}`} viewBox="0 0 16 16">
             <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
@@ -395,4 +395,4 @@ function SVG_NextStepBtn() {
       </button>
     </Link>
   );
-}
+};

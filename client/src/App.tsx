@@ -21,7 +21,7 @@ export default function App() {
         <Route path="case-information" element={<Case_Info />} />
         <Route path="case-deed" element={<Case_Deed />} />
         <Route path="case-speech-recognizer" element={<Case_SpeechRecog />} />
-        <Route path="case-script_editer" element={<Case_ScriptEd />} />
+        <Route path="case-script-editer" element={<Case_ScriptEd />} />
       </Route>
 
       <Route path="*" element={<Error />} />

@@ -469,6 +469,7 @@ div.speechRecog_hidden_infoList {
 @media screen and (max-width: 768px) {
   div#speechRecog_controlPanel {  
     button {
+      cursor: pointer;
       margin: 0;
       width: 64px;
       transition: all 0.7s ease-in-out;

@@ -8,6 +8,7 @@ export interface RecognizerState {
   currentSpeaker: string;
   currentSection: number;
   newMsg: string[][];
+  audioURL: string;
   // 2. additional status - buttons
   infoStatus: boolean;
   mediaStatus: boolean;
@@ -26,6 +27,7 @@ const initialState: RecognizerState = {
   currentSpeaker: "host",
   currentSection: 1,
   newMsg: [["system", "#### Section 1 ####"]],
+  audioURL: "",
   // 2. additional status - buttons
   infoStatus: false,
   mediaStatus: false,
@@ -59,6 +61,9 @@ export const recognizerSlice = createSlice({
       else {
         state.newMsg = [...state.newMsg, ...action.payload];
       }
+    },
+    updateAudioURL: (state, action: PayloadAction<string>) => {
+      state.audioURL = action.payload;
     },
     // 2. Additional - Control Panel
     breakSection: (state, action: PayloadAction<string[]>) => {
@@ -119,6 +124,7 @@ export const recognizerSlice = createSlice({
 export const {
   switchSpeaker,
   updateMsgs,
+  updateAudioURL,
   resetRecog,
   setMediaStatus,
   setUserDeviceStatus,

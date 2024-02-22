@@ -1,12 +1,48 @@
-export let mediaRecorder: MediaRecorder | null = null;
+import { util_recorder_store } from "../util/Util_Recorder_store";
 
-export const createMediaStream = function (callbackfn: (success: boolean) => void): void {
+
+
+export let mediaRecorder: MediaRecorder | null = null;
+export let audioChunks: Blob[] = [];
+
+
+
+export const createMediaStream = async function (callbackfn: (success: boolean) => void) {
+
+  // recorder setup
   navigator.mediaDevices
     .getUserMedia({ audio: true, video: false })
     .then((stream: MediaStream) => {
+
+      // stream setup
       mediaRecorder = new MediaRecorder(stream);
       callbackfn(true);
       console.log(`[System] Default Media Recorder is connected....`);
+
+      // event listener
+      mediaRecorder.ondataavailable = event => {
+        audioChunks.push(event.data);
+      };
+
+      mediaRecorder.onstart = () => {
+        console.log(`[System] Default Media Recorder start running....`);
+      };
+
+      mediaRecorder.onpause = () => {
+        console.log(`[System] Default Media Recorder paused....`);
+      };
+
+      mediaRecorder.onresume = () => {
+        console.log(`[System] Default Media Recorder continue....`);
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(audioChunks, { type: "audio/mp3; codecs=opus" });
+        audioChunks = [];
+        util_recorder_store.audioURL = window.URL.createObjectURL(blob);
+        console.log(`[System] Default Media Recorder stop running....`);
+      };
+
     })
     .catch((error) => {
       callbackfn(false);
@@ -15,33 +51,26 @@ export const createMediaStream = function (callbackfn: (success: boolean) => voi
     });
 };
 
+
+
 // FUNCTIONS
 
 export let audioStart = function (): void {
-  if (!mediaRecorder)
-    return;
-  else {
-    mediaRecorder.start();
-    console.log(mediaRecorder);
-    return;
-  }
+  if (!mediaRecorder) return;
+  return mediaRecorder.start();
 };
 
 export let audioPause = function (): void {
-  if (!mediaRecorder)
-    return;
-  else {
-    mediaRecorder.pause();
-    return;
-  };
+  if (!mediaRecorder) return;
+  return mediaRecorder.pause();
 };
 
 export let audioResume = function (): void {
-  if (!mediaRecorder)
-    return;
-  else {
-    mediaRecorder.resume();
-    console.log(mediaRecorder);
-    return;
-  }
+  if (!mediaRecorder) return;
+  return mediaRecorder.resume();
 };
+
+export let audioStop = function (): void {
+  if (!mediaRecorder) return;
+  return mediaRecorder.stop();
+};    

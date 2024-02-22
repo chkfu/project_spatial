@@ -13,8 +13,8 @@ import { updateLang } from "../redux/slices/interviewSlice";
 import { switchSpeaker, closeLists } from '../../src/redux/slices/recognizerSlice';
 import { util_date_interpreter, util_timeInterpreter } from "../util/Util_Func_datetime.ts";
 import { util_langlist } from "../util/Util_List_lang.ts";
-import { audioStart, audioPause, audioResume } from "../components/Comp_AudioRecorder";
-
+import { audioStart, audioPause, audioResume, audioStop } from "../components/Comp_AudioRecorder";
+import { util_recorder_store } from "../util/Util_Recorder_store.ts";
 
 
 // MAIN
@@ -110,7 +110,7 @@ function SRecog_ExtendList() {
   );
 }
 
-export const mediaRecorderContext = React.createContext({ audioStart, audioPause, audioResume });
+export const mediaRecorderContext = React.createContext({ audioStart, audioPause, audioResume, audioStop });
 
 function SRecogBody() {
   // Use Ref
@@ -124,20 +124,14 @@ function SRecogBody() {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
-  }, [redux_recog.newMsg]); // Remarks: Chatboard always scroll to bottom as piority
-
-  // useEffect(() => {
-  //   function activateStream() {
-  //     if (!redux_recog.mediaStatus) return;
-  //     createMediaStream();
-  //   }
-  //   activateStream();
-  // }, [redux_recog.mediaStatus]);
-
+    (function () {
+      return util_recorder_store.audioURL;
+    })();
+  }, [redux_recog.newMsg, util_recorder_store.audioURL]); // Remarks: Chatboard always scroll to bottom as piority
 
   // Return
   return (
-    <mediaRecorderContext.Provider value={{ audioStart, audioPause, audioResume }}>
+    <mediaRecorderContext.Provider value={{ audioStart, audioPause, audioResume, audioStop }}>
       <div id="speechRecog_body">
         <SRecog_AudioField />
         <SRecog_ChatBoard containerRef={containerRef} />
@@ -200,7 +194,7 @@ function SRecog_LangOptionList(props: { lang_arr: string[]; }) {
 function SRecog_AudioField() {
   return (
     <div id="speechRecog_audioField">
-      Audio
+
     </div>
   );
 }
@@ -221,7 +215,7 @@ function SRecog_ChatBoard(props: { containerRef: React.RefObject<HTMLDivElement>
           );
         })
       }
-    </div >
+    </div>
   );
 }
 
@@ -246,7 +240,7 @@ function SRecog_SpeakerPanel() {
             <Comp_SpeakerDetector speaker='guest' activation={false} num={2} />
         }
       </div>
-    </div >
+    </div>
   );
 }
 
