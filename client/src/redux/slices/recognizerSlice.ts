@@ -14,7 +14,7 @@ export interface RecognizerState {
   mediaStatus: boolean;
   userDeviceStatus: boolean;
   recordingStatus: string,
-  recognizerStatus: string;
+  recognizerStatus: boolean;
   // 3. display - hidden information
   caseInfoStatus: boolean;
   langListStatus: boolean;
@@ -33,7 +33,7 @@ const initialState: RecognizerState = {
   mediaStatus: false,
   userDeviceStatus: false,
   recordingStatus: "inactive",
-  recognizerStatus: "inactive",
+  recognizerStatus: false,
   // 3. display - hidden information
   caseInfoStatus: false,
   langListStatus: false,
@@ -79,19 +79,26 @@ export const recognizerSlice = createSlice({
     setRecording: (state, action: PayloadAction<string>) => {
       state.recordingStatus = action.payload;
     },
-    setRecognizer: (state) => {
-      if (state.recognizerStatus === "inactive")
-        state.recognizerStatus = "started";
-      else if (state.recognizerStatus === "started" || state.recognizerStatus === "resumed")
-        state.recognizerStatus = "stopped";
-      else if (state.recognizerStatus === "stopped")
-        state.recognizerStatus = "resumed";
+    setRecognizer: (state, action: PayloadAction<boolean>) => {
+      state.recognizerStatus = action.payload;
     },
     resetRecog: (state) => {
       state.newMsg = [["system", "#### Section 1 ####"]];
-      state.recognizerStatus = "inactive";
-      state.recordingStatus = 'inactive';
+      state.audioURL = "";
+      state.currentSpeaker = "host";
       state.currentSection = 1;
+      state.recognizerStatus = false;
+      state.recordingStatus = 'inactive';
+      state.infoStatus = false;
+      state.langListStatus = false;
+    },
+    nextResetRecog: (state) => {
+      state.currentSpeaker = "host";
+      state.currentSection = 1;
+      state.recognizerStatus = false;
+      state.recordingStatus = 'inactive';
+      state.infoStatus = false;
+      state.langListStatus = false;
     },
     // 3. display - hidden information
     showCaseInfo: (state) => {
@@ -126,6 +133,7 @@ export const {
   updateMsgs,
   updateAudioURL,
   resetRecog,
+  nextResetRecog,
   setMediaStatus,
   setUserDeviceStatus,
   setRecognizer,

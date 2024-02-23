@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 // TS fucntions
 import { util_recognizer_store } from '../util/Util_Recognizer_store';
-import { setRecording, setRecognizer, resetRecog, breakSection, updateSectNum, showCaseInfo, showLangList, setMediaStatus, setUserDeviceStatus } from '../redux/slices/recognizerSlice';
+import { setRecording, setRecognizer, resetRecog, nextResetRecog, breakSection, updateSectNum, showCaseInfo, showLangList, setMediaStatus, setUserDeviceStatus } from '../redux/slices/recognizerSlice';
 import { SRecogStarter, SRecogTerminator } from './Comp_SpeechRecognizer';
 import { util_langlist } from '../util/Util_List_lang';
 import { mediaRecorder } from './Comp_AudioRecorder';
@@ -133,10 +133,10 @@ export default function SRecog_SVGDetector(props: { type: string; }) {
   }
 
 
-  if (props.type === "Recognizer" && (redux_recog.recognizerStatus === "started" || redux_recog.recognizerStatus === "resumed"))
+  if (props.type === "Recognizer" && redux_recog.recognizerStatus)
     return <SVG_ScriptOnBtn />;
 
-  if (props.type === "Recognizer" && (redux_recog.recognizerStatus === "stopped" || redux_recog.recognizerStatus === "inactive"))
+  if (props.type === "Recognizer" && !redux_recog.recognizerStatus)
     return <SVG_ScriptOffBtn />;
 
   if (props.type === "Erase Messages")
@@ -233,7 +233,7 @@ function SVG_AudioBtn_Inactive() {
       dispatch(setRecording('started'));
       audioStart();
       SRecogStarter(dispatch);
-      dispatch(setRecognizer());
+      dispatch(setRecognizer(true));
     }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
@@ -256,7 +256,7 @@ function SVG_AudioBtn_Start() {
       dispatch(setRecording('paused'));
       audioPause();
       SRecogTerminator();
-      dispatch(setRecognizer());
+      dispatch(setRecognizer(false));
     }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_active" viewBox="0 0 16 16">
@@ -279,7 +279,7 @@ function SVG_AudioBtn_Pause() {
       dispatch(setRecording('resumed'));
       audioResume();
       SRecogStarter(dispatch);
-      dispatch(setRecognizer());
+      dispatch(setRecognizer(true));
     }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
@@ -302,7 +302,7 @@ function SVG_AudioBtn_Resume() {
       dispatch(setRecording('paused'));
       audioPause();
       SRecogTerminator();
-      dispatch(setRecognizer());
+      dispatch(setRecognizer(false));
     }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_active" viewBox="0 0 16 16">
@@ -322,7 +322,7 @@ function SVG_ScriptOnBtn() {
   return (
     <button onClick={() => {
       SRecogStarter(dispatch);
-      dispatch(setRecognizer());
+      dispatch(setRecognizer(false));
     }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_active" viewBox="0 0 16 16">
@@ -342,7 +342,7 @@ function SVG_ScriptOffBtn() {
   return (
     <button onClick={() => {
       SRecogTerminator();
-      dispatch(setRecognizer());
+      dispatch(setRecognizer(true));
     }}>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" className="recog_icon_inactive" viewBox="0 0 16 16">
@@ -378,13 +378,13 @@ function SVG_EraseBtn() {
 function SVG_NextStepBtn() {
   const { audioStop } = React.useContext(mediaRecorderContext);
   const redux_recog = useAppSelector(state => state.recognizer);
+  const dispatch = useAppDispatch();
   return (
     <Link to=''>
       <button onClick={() => {
         audioStop();
         util_recognizer_store.final_msgs = [...redux_recog.newMsg];
-        console.log(util_recognizer_store.final_msgs);
-        console.log(util_recorder_store.audioURL);
+        dispatch(nextResetRecog());
       }}>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" className={`${redux_recog.newMsg.length === 1 ? "recog_icon_disabled" : "recog_icon_inactive"}`} viewBox="0 0 16 16">
