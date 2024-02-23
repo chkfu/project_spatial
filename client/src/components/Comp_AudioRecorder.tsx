@@ -6,20 +6,19 @@ export let mediaRecorder: MediaRecorder | null = null;
 export let audioChunks: Blob[] = [];
 
 
-
 export const createMediaStream = async function (callbackfn: (success: boolean) => void) {
 
-  // recorder setup
+  // 1. recorder setup
   navigator.mediaDevices
     .getUserMedia({ audio: true, video: false })
     .then((stream: MediaStream) => {
 
-      // stream setup
+      // 1a. stream setup
       mediaRecorder = new MediaRecorder(stream);
       callbackfn(true);
       console.log(`[System] Default Media Recorder is connected....`);
 
-      // event listener
+      // 1b. event listener
       mediaRecorder.ondataavailable = event => {
         audioChunks.push(event.data);
       };
@@ -42,7 +41,6 @@ export const createMediaStream = async function (callbackfn: (success: boolean) 
         util_recorder_store.audioURL = window.URL.createObjectURL(blob);
         console.log(`[System] Default Media Recorder stop running....`);
       };
-
     })
     .catch((error) => {
       callbackfn(false);

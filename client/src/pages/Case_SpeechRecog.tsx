@@ -133,7 +133,6 @@ function SRecogBody() {
   return (
     <mediaRecorderContext.Provider value={{ audioStart, audioPause, audioResume, audioStop }}>
       <div id="speechRecog_body">
-        <SRecog_AudioField />
         <SRecog_ChatBoard containerRef={containerRef} />
         <SRecog_SpeakerPanel />
         <SRecog_FnControl />
@@ -190,14 +189,6 @@ function SRecog_LangOptionList(props: { lang_arr: string[]; }) {
 
 
 // 2. Body Area
-
-function SRecog_AudioField() {
-  return (
-    <div id="speechRecog_audioField">
-
-    </div>
-  );
-}
 
 function SRecog_ChatBoard(props: { containerRef: React.RefObject<HTMLDivElement>; }) {
   // Redux
