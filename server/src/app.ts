@@ -1,6 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
-import userRouter from '../src/routes/usersRoute.js';
+import userRouter from './routes/usersRoute.js';
 
 const app: Express = express();
 app.use(express.static('public'));
