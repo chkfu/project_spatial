@@ -16,7 +16,7 @@ export default function Home() {
           <h1>Guilding Futures</h1>
           <h2>Turn Spoken Words into Text Tapestry, Craft Narratives Effortlessly, and Refine Your Stories Seamlessly.</h2>
           <div>
-            <Link to="/login"><button>Get Started</button></Link>
+            <Link to="/case-information"><button>Get Started</button></Link>
           </div>
 
         </div>
